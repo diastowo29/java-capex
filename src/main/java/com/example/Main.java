@@ -57,6 +57,11 @@ public class Main {
   String form() {
     return "form";
   }
+  
+  @RequestMapping("login")
+  String loginForm() {
+	  return "login";
+  }
 
   @RequestMapping("/db")
   String db(Map<String, Object> model) {

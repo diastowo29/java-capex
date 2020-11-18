@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
   <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-  <title>Dashio - Bootstrap Admin Template</title>
+  <title>CAPEX DE 2.0</title>
 
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
@@ -42,7 +42,7 @@
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
       </div>
       <!--logo start-->
-      <a href="index.html" class="logo"><b>DASH<span>IO</span></b></a>
+      <a href="index.html" class="logo"><b>CAPEX<span> DE</span> 2.0</b></a>
       <!--logo end-->
       <div class="nav notify-row" id="top_menu">
         <!--  notification start -->
@@ -230,9 +230,10 @@
         <!--  notification end -->
       </div>
       <div class="top-menu">
-        <!-- <ul class="nav pull-right top-menu">
-          <li><a class="logout" href="login.html">Logout</a></li>
-        </ul> -->
+        <ul class="nav pull-right top-menu">
+        	<li><img alt="pertamina" src="img/pertamina-crop.png" style="max-height: 50px; margin-top: 5px;"></li>
+        	<!-- <li><a class="logout" href="/login">Logout</a></li> -->
+        </ul>
       </div>
     </header>
     <!--header end-->
@@ -299,62 +300,60 @@
           <li class="sub-menu">
             <a class="active" href="javascript:;">
               <i class="fa fa-tasks"></i>
-              <span>Estimate </span>
+              <span>Calculation </span>
               </a>
             <ul class="sub">
-              <li class="active"><a href="/form">Estimator Menu</a></li>
-              <!-- <li><a href="advanced_form_components.html">Advanced Components</a></li>
-              <li><a href="form_validation.html">Form Validation</a></li>
-              <li><a href="contactform.html">Contact Form</a></li>
-              <li><a href="contactform.html">Contact Form</a></li> -->
-            </ul>
-          </li>
-          <!-- <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-th"></i>
-              <span>Data Tables</span>
-              </a>
-            <ul class="sub">
-              <li><a href="basic_table.html">Basic Table</a></li>
-              <li><a href="responsive_table.html">Responsive Table</a></li>
-              <li><a href="advanced_table.html">Advanced Table</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="inbox.html">
-              <i class="fa fa-envelope"></i>
-              <span>Mail </span>
-              <span class="label label-theme pull-right mail-info">2</span>
-              </a>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class=" fa fa-bar-chart-o"></i>
-              <span>Charts</span>
-              </a>
-            <ul class="sub">
-              <li><a href="morris.html">Morris</a></li>
-              <li><a href="chartjs.html">Chartjs</a></li>
-              <li><a href="flot_chart.html">Flot Charts</a></li>
-              <li><a href="xchart.html">xChart</a></li>
+              <li class="active"><a href="/form">Start Calculation</a></li>
             </ul>
           </li>
           <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-comments-o"></i>
-              <span>Chat Room</span>
-              </a>
-            <ul class="sub">
-              <li><a href="lobby.html">Lobby</a></li>
-              <li><a href="chat_room.html"> Chat Room</a></li>
-            </ul>
+            <a href="#">
+            	<i class="fa fa-inbox"></i>
+            	<span>Storage Tank </span>
+           	</a>
           </li>
-          <li>
-            <a href="google_maps.html">
-              <i class="fa fa-map-marker"></i>
-              <span>Google Maps </span>
-              </a>
-          </li> -->
+          <li class="sub-menu">
+            <a href="#">
+            	<i class="fa fa-anchor"></i>
+            	<span>Dermaga </span>
+           	</a>
+          </li>
+          <li class="sub-menu">
+            <a href="#">
+            	<i class="fa fa-plane"></i>
+            	<span>DPPU </span>
+           	</a>
+          </li>
+          <li class="sub-menu">
+            <a href="#">
+            	<i class="fa fa-fire-extinguisher"></i>
+            	<span>Depot LPG </span>
+           	</a>
+          </li>
+          <li class="sub-menu">
+            <a href="#">
+            	<i class="fa fa-code-fork"></i>
+            	<span>Pipeline </span>
+           	</a>
+          </li>
+          <li class="sub-menu">
+            <a href="#">
+            	<i class="fa fa-sort-amount-desc"></i>
+            	<span>Terminal BBM </span>
+           	</a>
+          </li>
+          <li class="sub-menu">
+            <a href="#">
+            	<i class="fa fa-tasks"></i>
+            	<span>SPM </span>
+           	</a>
+          </li>
+          <li class="sub-menu">
+            <a href="/login" style="color: red !important;">
+            	<i class="fa fa-power-off"></i>
+            	<span>Logout </span>
+           	</a>
+          </li>
         </ul>
         <!-- sidebar menu end-->
       </div>
@@ -366,7 +365,7 @@
     <!--main content start-->
     <section id="main-content">
       <section class="wrapper">
-        <h3><i class="fa fa-angle-right"></i> Estimate</h3>
+        <h3><i class="fa fa-angle-right"></i> Start Calculation</h3>
         <!-- BASIC FORM ELELEMNTS -->
         <div class="row mt">
           <div class="col-lg-12">
@@ -374,27 +373,83 @@
               <!-- <h4 class="mb"><i class="fa fa-angle-right"></i> Form Elements</h4> -->
               <form class="form-horizontal style-form" method="get">
                 <div class="form-group">
-                  <label class="col-sm-2 col-sm-2 control-label">Class</label>
-                  <div class="col-sm-2">
+                  <label class="col-sm-2 control-label">Estimate Class</label>
+                  <div class="col-sm-3">
                     <!-- <input type="text" class="form-control"> -->
-                    <select class="form-control">
+                    <select class="form-control" onchange="changeEstimate(this)">
+                    	<option selected>Pilih class</option>
                     	<option disabled>Class 3 Estimate</option>
-                    	<option selected>Class 4 Estimate</option>
+                    	<option>Class 4 Estimate</option>
                     	<option disabled>Class 5 Estimate</option>
 	                </select>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="col-sm-2 col-sm-2 control-label">Infrastructure </label>
-                  <div class="col-sm-2">
+                <div class="form-group" id="facility_container">
+                  <label class="col-sm-2 control-label">Sarana dan Fasilitas </label>
+                  <div class="col-sm-3">
+                    <!-- <input type="text" class="form-control"> -->
+                    <select class="form-control" onchange="changeFacility(this)">
+                    	<option selected>Pilih fasilitas</option>
+                    	<option>Terminal BBM</option>
+                    	<option disabled>Depot LPG Pressurized</option>
+                    	<option disabled>DPPU</option>
+                    	<option disabled>Pipeline</option>
+	                </select>
+                  </div>
+                </div>
+                <div class="form-group" id="tangki_container">
+                  <label class="col-sm-2 control-label">Kapasitas Total Tangki </label>
+                  <div class="col-sm-1">
                     <!-- <input type="text" class="form-control"> -->
                     <select class="form-control">
-                    	<option>Terminal BBM</option>
-                    	<option>Depot LPG Pressurized</option>
-                    	<option selected>DPPU</option>
-                    	<option>Jetty</option>
-                    	<option>Storage Tank</option>
+                    	<option>500</option>
+                    	<option>1000</option>
+                    	<option>1500</option>
+                    	<option>2000</option>
+                    	<option>2500</option>
+                    	<option>5000</option>
+                    	<option>7500</option>
+                    	<option>10000</option>
+                    	<option>12500</option>
+                    	<option>15000</option>
+                    	<option>20000</option>
+                    	<option>25000</option>
+                    	<option>30000</option>
+                    	<option>40000</option>
+                    	<option selected>50000</option>
 	                </select>
+                  </div>
+                  <div class="col-sm-2 form-inline">
+                  	<input class="form-control" type='text'/>
+                  	<label>Unit</label>
+                  </div>
+                </div>
+                <div class="form-group" id="dermaga_container">
+                  <label class="col-sm-2 control-label">Jenis Dermaga </label>
+                  <div class="col-sm-3">
+                    <!-- <input type="text" class="form-control"> -->
+                    <select class="form-control">
+                    	<option selected>Type LR & MR (50.000 DWT-100.000 DWT)</option>
+                    	<option>Type MR & GP (17.500 DWT-50.000 DWT)</option>
+                    	<option>Type Small 2 (6.500 DWT)</option>
+                    	<option>Type Small 1 (3.500 DWT)</option>
+                    	<option>Type Lighter (1.500 DWT)</option>
+	                </select>
+                  </div>
+                </div>
+                <div class="form-group form-inline" id="trestle_container">
+                  <label class="col-sm-2 col-sm-2 control-label">Penjang Trestle Dermaga </label>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control">
+                    <label>M</label>
+                  </div>
+                </div>
+                <div class="form-group form-inline" id="kurs_container">
+                  <label class="col-sm-2 col-sm-2 control-label">Nilai Kurs 1 USD = Rupiah </label>
+                  <div class="col-sm-2">
+                  	<label>1 US$ = </label>
+                    <input type="text" class="form-control">
+                    <label>IDR</label>
                   </div>
                 </div>
                 <!-- <div class="form-group">
@@ -440,156 +495,258 @@
                     <p class="form-control-static">email@example.com</p>
                   </div>
                 </div> -->
+                
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-1">
+                    <input type="button" class="form-control btn-cancel" onclick="return doReset()" value="Reset">
+                  </div>
+                  <div class="col-sm-1">
+                    <input type="submit" class="form-control btn-theme" onclick="return doCalculate()" value="Calculate">
+                  </div>
+                </div>
               </form>
             </div>
           </div>
           <!-- col-lg-12-->
         </div>
         <!-- /row -->
-        <section class="wrapper">
-	        <h3><i class="fa fa-angle-right"></i> DPPU Standard</h3>
+        <section class="wrapper" id="table_section">
+	        <h3><i class="fa fa-angle-right"></i> TERMINAL BBM KAPASITAS 200.000 KL (BASIS HARGA TANJUNG UBAN)</h3>
 	        <div class="row mt">
 	          <div class="col-lg-12">
-	            <div class="content-panel">
-	              <h4><i class="fa fa-angle-right"></i> DPPU Class V (3 x 300 KL)</h4>
+	            <div class="content-panel" style="padding-left:10px; padding-right: 10px;">
+	              <!-- <h4><i class="fa fa-angle-right"></i> DPPU Class V (3 x 300 KL)</h4> -->
 	              <section id="unseen">
-	                <table class="table table-bordered table-striped table-condensed">
+	                <table id="calc-table" class="table table-bordered table-striped table-condensed">
 	                  <thead>
 	                    <tr>
 	                      <th>No</th>
 	                      <th>Items</th>
-	                      <th class="numeric">Jumlah</th>
-	                      <th class="numeric">Satuan</th>
-	                      <th class="numeric">Unit Price (Incl. Jasa) USD</th>
-	                      <th class="numeric">Total Harga (USD)</th>
 	                      <th class="numeric">Remarks</th>
+	                      <th class="numeric">Quantity</th>
+	                      <th class="numeric">Satuan</th>
+	                      <th class="numeric">Unit Price (Incl. Jasa) Rp</th>
+	                      <th class="numeric">Total Price (Incl. Jasa) Rp</th>
+	                      <th class="numeric">Total Price (Incl. Jasa) USD</th>
 	                    </tr>
 	                  </thead>
 	                  <tbody>
 	                    <tr>
-	                      <td>AAC</td>
-	                      <td>General Requirements (Engineering, Mob Demob, etc)</td>
-	                      <td class="numeric">
-	                      	<input type="text" class="form-control" value=1>
-	                      </td>
+	                      <td>1</td>
+	                      <td>General</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">1</td>
 	                      <td class="numeric">ea</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric"></td>
+	                      <td class="numeric">7.401.400.119</td>
+	                      <td class="numeric">7.401.400.119</td>
+	                      <td class="numeric">496.738</td>
 	                    </tr>
 	                    <tr>
-	                      <td>AAC</td>
-	                      <td>Storage Tanks 3 x 300 KL</td>
-	                      <td class="numeric">
-	                      	<input type="text" class="form-control" disabled>
-	                      </td>
-	                      <td class="numeric"></td>
-	                      <td class="numeric"></td>
-	                      <td class="numeric">304.709</td>
-	                      <td class="numeric"></td>
-	                    </tr>
-	                    <tr>
-	                      <td>AAC</td>
-	                      <td>Mechanical</td>
-	                      <td class="numeric">
-	                      	<input type="text" class="form-control" disabled>
-	                      </td>
-	                      <td class="numeric"></td>
-	                      <td class="numeric"></td>
-	                      <td class="numeric">915.903</td>
-	                      <td class="numeric"></td>
-	                    </tr>
-	                    <tr>
-	                      <td>AAC</td>
-	                      <td>Fire Protection</td>
-	                      <td class="numeric">
-	                      	<input type="text" class="form-control" disabled>
-	                      </td>
-	                      <td class="numeric"></td>
-	                      <td class="numeric"></td>
-	                      <td class="numeric">371.690</td>
-	                      <td class="numeric"></td>
-	                    </tr>
-	                    <tr>
-	                      <td>AAC</td>
-	                      <td>General Requirements (Engineering, Mob Demob, etc)</td>
-	                      <td class="numeric">
-	                      	<input type="text" class="form-control" value=1>
-	                      </td>
+	                      <td>2</td>
+	                      <td>Storage Tanks 50.000 KL</td>
+	                      <td class="numeric">Incl Pondasi Pancang</td>
+	                      <td class="numeric">4</td>
 	                      <td class="numeric">ea</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">$1.39</td>
+	                      <td class="numeric">20.374.237.811</td>
+	                      <td class="numeric">81.496.951.243</td>
+	                      <td class="numeric">5.469.594</td>
 	                    </tr>
 	                    <tr>
-	                      <td>AAC</td>
-	                      <td>General Requirements (Engineering, Mob Demob, etc)</td>
-	                      <td class="numeric">
-	                      	<input type="text" class="form-control" value=1>
-	                      </td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">$1.39</td>
+	                      <td>3</td>
+	                      <td>Mekanikal</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">-</td>
 	                    </tr>
 	                    <tr>
-	                      <td>AAC</td>
-	                      <td>General Requirements (Engineering, Mob Demob, etc)</td>
-	                      <td class="numeric">
-	                      	<input type="text" class="form-control" value=1>
-	                      </td>
+	                      <td></td>
+	                      <td>Pompa</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">1</td>
 	                      <td class="numeric">ea</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">$1.39</td>
+	                      <td class="numeric">40.670.550.859</td>
+	                      <td class="numeric">40.670.550.859</td>
+	                      <td class="numeric">2.729.567</td>
 	                    </tr>
 	                    <tr>
-	                      <td>AAC</td>
-	                      <td>General Requirements (Engineering, Mob Demob, etc)</td>
-	                      <td class="numeric">
-	                      	<input type="text" class="form-control" value=1>
-	                      </td>
+	                      <td></td>
+	                      <td>Blending System</td>
+	                      <td class="numeric">Incl. Tangki additive</td>
+	                      <td class="numeric">1</td>
 	                      <td class="numeric">ea</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">$1.39</td>
+	                      <td class="numeric">35.184.294.991</td>
+	                      <td class="numeric">35.184.294.991</td>
+	                      <td class="numeric">2.361.362</td>
 	                    </tr>
 	                    <tr>
-	                      <td>AAC</td>
-	                      <td>General Requirements (Engineering, Mob Demob, etc)</td>
-	                      <td class="numeric">
-	                      	<input type="text" class="form-control" value=1>
-	                      </td>
+	                      <td></td>
+	                      <td>Piping System</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">1</td>
 	                      <td class="numeric">ea</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">$1.39</td>
+	                      <td class="numeric">172.642.023.826</td>
+	                      <td class="numeric">172.642.023.826</td>
+	                      <td class="numeric">11.586.713</td>
 	                    </tr>
 	                    <tr>
-	                      <td>AAC</td>
-	                      <td>General Requirements (Engineering, Mob Demob, etc)</td>
-	                      <td class="numeric">
-	                      	<input type="text" class="form-control" value=1>
-	                      </td>
+	                      <td></td>
+	                      <td>Filling System</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">1</td>
 	                      <td class="numeric">ea</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">$1.39</td>
+	                      <td class="numeric">24.691.101.636</td>
+	                      <td class="numeric">24.691.101.636</td>
+	                      <td class="numeric">1.657.121</td>
 	                    </tr>
 	                    <tr>
-	                      <td>AAC</td>
-	                      <td>General Requirements (Engineering, Mob Demob, etc)</td>
-	                      <td class="numeric">
-	                      	<input type="text" class="form-control" value=1>
-	                      </td>
+	                      <td>4</td>
+	                      <td>Civil & Infrastructure</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">-</td>
+	                    </tr>
+	                    <tr>
+	                      <td></td>
+	                      <td>Bangunan</td>
+	                      <td class="numeric">Total luas bangunan 1.112 m2</td>
+	                      <td class="numeric">1</td>
 	                      <td class="numeric">ea</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">154.111</td>
-	                      <td class="numeric">$1.39</td>
+	                      <td class="numeric">4.406.619.360</td>
+	                      <td class="numeric">4.406.619.360</td>
+	                      <td class="numeric">295.746</td>
+	                    </tr>
+	                    <tr>
+	                      <td></td>
+	                      <td>Struktur Sipil lain</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">1</td>
+	                      <td class="numeric">ea</td>
+	                      <td class="numeric">20.747.685.908</td>
+	                      <td class="numeric">20.747.685.908</td>
+	                      <td class="numeric">1.392.462</td>
+	                    </tr>
+	                    <tr>
+	                      <td>5</td>
+	                      <td>HSE Facility & Observation</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">1</td>
+	                      <td class="numeric">ea</td>
+	                      <td class="numeric">45.775.251.497</td>
+	                      <td class="numeric">45.775.251.497</td>
+	                      <td class="numeric">3.072.165</td>
+	                    </tr>
+	                    <tr>
+	                      <td>6</td>
+	                      <td>Electrical</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">1</td>
+	                      <td class="numeric">ea</td>
+	                      <td class="numeric">31.192.865.917</td>
+	                      <td class="numeric">31.192.865.917</td>
+	                      <td class="numeric">2.093.481</td>
+	                    </tr>
+	                    <tr>
+	                      <td>7</td>
+	                      <td>Instrumentation & Control System</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">1</td>
+	                      <td class="numeric">ea</td>
+	                      <td class="numeric">55.644.791.309</td>
+	                      <td class="numeric">55.644.791.309</td>
+	                      <td class="numeric">3.734.550</td>
+	                    </tr>
+	                    <tr>
+	                      <td>8</td>
+	                      <td>Dermaga Type LR & MR (50.000 DWT-100.000 DWT)</td>
+	                      <td class="numeric">- Reff Sheet ""Dermaga" <br>- Asumsi trestle 710 M</td>
+	                      <td class="numeric">1</td>
+	                      <td class="numeric">ea</td>
+	                      <td class="numeric">220.520.638.591</td>
+	                      <td class="numeric">220.520.638.591</td>
+	                      <td class="numeric">14.800.043</td>
+	                    </tr>
+	                    <tr>
+	                      <td>9</td>
+	                      <td>Inspection, Test, Commissioning & Certification</td>
+	                      <td class="numeric">-</td>
+	                      <td class="numeric">1</td>
+	                      <td class="numeric">ea</td>
+	                      <td class="numeric">17.809.826.246</td>
+	                      <td class="numeric">17.809.826.246</td>
+	                      <td class="numeric">1.195.290</td>
+	                    </tr>
+	                    <tr>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td class="numeric">Total</td>
+	                      <td class="numeric">758.184.001.502</td>
+	                      <td></td>
+	                    </tr>
+	                    <tr>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td class="numeric">K&R (8%)</td>
+	                      <td class="numeric">60.654.720.120</td>
+	                      <td></td>
+	                    </tr>
+	                    <tr>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td class="numeric">Contingency (10%)</td>
+	                      <td class="numeric">75.818.400.150</td>
+	                      <td>Mengakomodasi variasi harga</td>
+	                    </tr>
+	                    <tr>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td class="numeric">Management Reserve (%)</td>
+	                      <td class="numeric"></td>
+	                      <td>Mengakomodasi ketidakpastian TOR.<br>Ditentukan oleh user:<br>- Tingkat kepastian TOR Tinggi (0%)<br>- Tingkat kepastian TOR Sedang - Rendah (5% s/d 15%)</td>
+	                    </tr>
+	                    <tr>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td class="numeric">Grand Total (IDR)</td>
+	                      <td class="numeric">894.657.121.773</td>
+	                      <td></td>
+	                    </tr>
+	                    <tr>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td></td>
+	                      <td class="numeric">Grand Total (USD)</td>
+	                      <td class="numeric">60.044.102</td>
+	                      <td></td>
 	                    </tr>
 	                  </tbody>
 	                </table>
 	              </section>
+	              <div>
+	              	<input type="button" class="form-control btn-theme" onclick="convertPdf()" value="Print">
+              		</div>
 	            </div>
 	          </div>
 	        </div>
@@ -601,7 +758,7 @@
     <!-- /MAIN CONTENT -->
     <!--main content end-->
     <!--footer start-->
-    <footer class="site-footer">
+    <footer class="site-footer" style="position: absolute; bottom:0; width: -webkit-fill-available;">
       <div class="text-center">
         <p>
           &copy; Copyrights <strong>Dashio</strong>. All Rights Reserved
@@ -642,6 +799,10 @@
   <script type="text/javascript" src="lib/bootstrap-daterangepicker/daterangepicker.js"></script>
   <script type="text/javascript" src="lib/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
   <script src="lib/form-component.js"></script>
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+  <script type="text/javascript" src="js/main-form.js"></script>
 
 </body>
 
