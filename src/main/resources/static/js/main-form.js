@@ -7,6 +7,8 @@ function resetForm () {
 	$('#trestle_container').hide();
 	$('#kurs_container').hide();
 	$('#table_section').hide();
+	$('#metodology_label').hide();
+	$('#accuracy_label').hide();
 }
 
 
@@ -26,6 +28,8 @@ function convertPdf () {
 }
 
 function changeEstimate (select) {
+	$('#metodology_label').show();
+	$('#accuracy_label').show();
 	$('#facility_container').show();
 }
 
