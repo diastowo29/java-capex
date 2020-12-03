@@ -203,7 +203,7 @@
                     	<option selected>Pilih class</option>
                     	<option disabled>Class 3 Estimate</option>
                     	<option>Class 4 Estimate</option>
-                    	<option disabled>Class 5 Estimate</option>
+                    	<option>Class 5 Estimate</option>
 	                </select>
                   </div>
                 </div>
@@ -219,16 +219,85 @@
                   <label class="col-sm-2 control-label">Sarana dan Fasilitas </label>
                   <div class="col-sm-3">
                     <!-- <input type="text" class="form-control"> -->
-                    <select class="form-control" onchange="changeFacility(this)">
+                    <select id="facility_input" class="form-control" onchange="changeFacility(this)">
                     	<option selected>Pilih fasilitas</option>
-                    	<option>Terminal BBM</option>
-                    	<option disabled>Depot LPG Pressurized</option>
-                    	<option disabled>DPPU</option>
-                    	<option disabled>Pipeline</option>
 	                </select>
                   </div>
                 </div>
-                <div class="form-group" id="tangki_container">
+                <div class="form-group" id="kelasdppu_container" hidden>
+                  <label class="col-sm-2 control-label">Kelas DPPU </label>
+                  <div class="col-sm-1">
+                    <!-- <input type="text" class="form-control"> -->
+                    <select class="form-control">
+                    	<option>Kelas V</option>
+                    	<option>Kelas IV</option>
+                    	<option>Kelas III</option>
+	                </select>
+                  </div>
+                </div>
+                <div class="form-group" id="depotlpg_container" hidden>
+                  <label class="col-sm-2 control-label">Kapasitas Depot LPG </label>
+                  <div class="col-sm-1">
+                    <!-- <input type="text" class="form-control"> -->
+                    <select class="form-control">
+                    	<option>3000</option>
+                    	<option>4000</option>
+                    	<option>5000</option>
+                    	<option>6000</option>
+                    	<option>9000</option>
+                    	<option>12000</option>
+	                </select>
+                  </div>
+                </div>
+                <div class="form-group" id="tangkidppu_container" hidden>
+                  <label class="col-sm-2 control-label">Kapasitas Total Tangki </label>
+                  <div class="col-sm-2 form-inline">
+                  	<input class="form-control width-adjust-50" type='number'/>
+                  	<label>KL</label>
+                  </div>
+                </div>
+                <div class="form-group" id="jenisstoragetank_container" hidden>
+                  <label class="col-sm-2 control-label">Jenis Tangki </label>
+                  <div class="col-sm-3">
+                    <!-- <input type="text" class="form-control"> -->
+                    <select class="form-control">
+                    	<option>Non Avtur - Include Foundation</option>
+                    	<option>Avtur Include Floating Suction, Foundation</option>
+	                </select>
+                  </div>
+                </div>
+                <div class="form-group" id="tangkistoragetank_container" hidden>
+                  <label class="col-sm-2 control-label">Kapasitas Total Tangki </label>
+                  <div class="col-sm-2 form-inline">
+                  	<input class="form-control width-adjust-50" type='number'/>
+                  	<label>KL</label>
+                  </div>
+                </div>
+                <div class="form-group" id="jenispipeline_container" hidden>
+                  <label class="col-sm-2 control-label">Jenis Pipeline </label>
+                  <div class="col-sm-3">
+                    <!-- <input type="text" class="form-control"> -->
+                    <select class="form-control">
+                    	<option>Onshore Cross Country Pipeline (BBM)</option>
+                    	<option>Offshore Pipeline (BBM)</option>
+	                </select>
+                  </div>
+                </div>
+                <div class="form-group" id="panjangpipeline_container" hidden>
+                  <label class="col-sm-2 control-label">Panjang Pipeline </label>
+                  <div class="col-sm-2 form-inline">
+                  	<input class="form-control width-adjust-50" type='number'/>
+                  	<label>M</label>
+                  </div>
+                </div>
+                <div class="form-group" id="diameterpipeline_container" hidden>
+                  <label class="col-sm-2 control-label">Diameter Pipeline </label>
+                  <div class="col-sm-2 form-inline">
+                  	<input class="form-control width-adjust-50" type='number'/>
+                  	<label>Inch</label>
+                  </div>
+                </div>
+                <div class="form-group" id="tangki_container" hidden>
                   <label class="col-sm-2 control-label">Kapasitas Total Tangki </label>
                   <div class="col-sm-1">
                     <!-- <input type="text" class="form-control"> -->
@@ -255,7 +324,7 @@
                   	<label>Unit</label>
                   </div>
                 </div>
-                <div class="form-group" id="dermaga_container">
+                <div class="form-group" id="dermaga_container" hidden>
                   <label class="col-sm-2 control-label">Jenis Dermaga </label>
                   <div class="col-sm-3">
                     <!-- <input type="text" class="form-control"> -->
@@ -268,18 +337,31 @@
 	                </select>
                   </div>
                 </div>
-                <div class="form-group form-inline" id="trestle_container">
+                <div class="form-group" id="jetty_container" hidden>
+                  <label class="col-sm-2 control-label">Spesifikasi Jetty </label>
+                  <div class="col-sm-3">
+                    <!-- <input type="text" class="form-control"> -->
+                    <select class="form-control">
+                    	<option selected>Type LR & MR (50.000 DWT-100.000 DWT)</option>
+                    	<option>Type MR & GP (17.500 DWT-50.000 DWT)</option>
+                    	<option>Type Small 2 (6.500 DWT)</option>
+                    	<option>Type Small 1 (3.500 DWT)</option>
+                    	<option>Type Lighter (1.500 DWT)</option>
+	                </select>
+                  </div>
+                </div>
+                <div class="form-group form-inline" id="trestle_container" hidden>
                   <label class="col-sm-2 col-sm-2 control-label">Penjang Trestle Dermaga </label>
                   <div class="col-sm-2">
                     <input type="text" class="form-control width-adjust-50">
                     <label>M</label>
                   </div>
                 </div>
-                <div class="form-group form-inline" id="kurs_container">
+                <div class="form-group form-inline" id="kurs_container" hidden>
                   <label class="col-sm-2 col-sm-2 control-label">Nilai Kurs 1 USD = Rupiah </label>
                   <div class="col-sm-2">
                   	<label>1 US$ = </label>
-                    <input type="text" class="form-control width-adjust-50">
+                    <input type="number" class="form-control width-adjust-50">
                     <label>IDR</label>
                   </div>
                 </div>
