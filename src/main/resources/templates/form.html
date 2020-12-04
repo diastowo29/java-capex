@@ -213,11 +213,11 @@
                 </div>
                 <div class="form-group" id="metodology_label">
                 	<label class="col-sm-2">Estimated Class & Metodology</label>
-                	<label class="col-sm-3">: Equipment Factored</label>
+                	<label id="class_method_label" class="col-sm-3">: Equipment Factored</label>
                 </div>
                 <div class="form-group" id="accuracy_label">
                 	<label class="col-sm-2">Expected Accuracy</label>
-                	<label class="col-sm-3">: -30% to +50%</label>
+                	<label id="class_acc_label" class="col-sm-3">: -30% to +50%</label>
                 </div>
                 <div class="form-group" id="facility_container">
                   <label class="col-sm-2 control-label">Sarana dan Fasilitas </label>
@@ -434,7 +434,19 @@
 	          <div class="col-lg-12">
 	            <div class="content-panel" style="padding-left:10px; padding-right: 10px;">
 	              <!-- <h4><i class="fa fa-angle-right"></i> DPPU Class V (3 x 300 KL)</h4> -->
-	              <section id="unseen">
+	              <section class="calculation-section" id="unseen">
+	                <div class="form-group col-sm-12" id="accuracy_label">
+	                	<label class="col-sm-2">Class Estimate</label>
+	                	<label id="class_est_table" class="col-sm-3">: Class 5 Estimate</label>
+	                </div>
+	                <div class="form-group col-sm-12" id="metodology_label">
+	                	<label class="col-sm-2">Estimated Class & Metodology</label>
+	                	<label id="class_method_table" class="col-sm-3">: Equipment Factored</label>
+	                </div>
+	                <div class="form-group col-sm-12" id="accuracy_label">
+	                	<label class="col-sm-2">Expected Accuracy</label>
+	                	<label id="class_acc_table" class="col-sm-3">: -30% to +50%</label>
+	                </div>
 	                <table id="calc-table" class="table table-bordered table-striped table-condensed">
 	                  <thead>
 	                    <tr>
@@ -448,217 +460,7 @@
 	                      <th class="numeric">Total Price (Incl. Jasa) USD</th>
 	                    </tr>
 	                  </thead>
-	                  <tbody>
-	                    <tr>
-	                      <td>1</td>
-	                      <td>General</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">1</td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">7.401.400.119</td>
-	                      <td class="numeric">7.401.400.119</td>
-	                      <td class="numeric">496.738</td>
-	                    </tr>
-	                    <tr>
-	                      <td>2</td>
-	                      <td>Storage Tanks 50.000 KL</td>
-	                      <td class="numeric">Incl Pondasi Pancang</td>
-	                      <td class="numeric">4</td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">20.374.237.811</td>
-	                      <td class="numeric">81.496.951.243</td>
-	                      <td class="numeric">5.469.594</td>
-	                    </tr>
-	                    <tr>
-	                      <td>3</td>
-	                      <td>Mekanikal</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">-</td>
-	                    </tr>
-	                    <tr>
-	                      <td></td>
-	                      <td>Pompa</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">1</td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">40.670.550.859</td>
-	                      <td class="numeric">40.670.550.859</td>
-	                      <td class="numeric">2.729.567</td>
-	                    </tr>
-	                    <tr>
-	                      <td></td>
-	                      <td>Blending System</td>
-	                      <td class="numeric">Incl. Tangki additive</td>
-	                      <td class="numeric">1</td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">35.184.294.991</td>
-	                      <td class="numeric">35.184.294.991</td>
-	                      <td class="numeric">2.361.362</td>
-	                    </tr>
-	                    <tr>
-	                      <td></td>
-	                      <td>Piping System</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">1</td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">172.642.023.826</td>
-	                      <td class="numeric">172.642.023.826</td>
-	                      <td class="numeric">11.586.713</td>
-	                    </tr>
-	                    <tr>
-	                      <td></td>
-	                      <td>Filling System</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">1</td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">24.691.101.636</td>
-	                      <td class="numeric">24.691.101.636</td>
-	                      <td class="numeric">1.657.121</td>
-	                    </tr>
-	                    <tr>
-	                      <td>4</td>
-	                      <td>Civil & Infrastructure</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">-</td>
-	                    </tr>
-	                    <tr>
-	                      <td></td>
-	                      <td>Bangunan</td>
-	                      <td class="numeric">Total luas bangunan 1.112 m2</td>
-	                      <td class="numeric">1</td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">4.406.619.360</td>
-	                      <td class="numeric">4.406.619.360</td>
-	                      <td class="numeric">295.746</td>
-	                    </tr>
-	                    <tr>
-	                      <td></td>
-	                      <td>Struktur Sipil lain</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">1</td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">20.747.685.908</td>
-	                      <td class="numeric">20.747.685.908</td>
-	                      <td class="numeric">1.392.462</td>
-	                    </tr>
-	                    <tr>
-	                      <td>5</td>
-	                      <td>HSE Facility & Observation</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">1</td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">45.775.251.497</td>
-	                      <td class="numeric">45.775.251.497</td>
-	                      <td class="numeric">3.072.165</td>
-	                    </tr>
-	                    <tr>
-	                      <td>6</td>
-	                      <td>Electrical</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">1</td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">31.192.865.917</td>
-	                      <td class="numeric">31.192.865.917</td>
-	                      <td class="numeric">2.093.481</td>
-	                    </tr>
-	                    <tr>
-	                      <td>7</td>
-	                      <td>Instrumentation & Control System</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">1</td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">55.644.791.309</td>
-	                      <td class="numeric">55.644.791.309</td>
-	                      <td class="numeric">3.734.550</td>
-	                    </tr>
-	                    <tr>
-	                      <td>8</td>
-	                      <td>Dermaga Type LR & MR (50.000 DWT-100.000 DWT)</td>
-	                      <td class="numeric">- Reff Sheet ""Dermaga" <br>- Asumsi trestle 710 M</td>
-	                      <td class="numeric">1</td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">220.520.638.591</td>
-	                      <td class="numeric">220.520.638.591</td>
-	                      <td class="numeric">14.800.043</td>
-	                    </tr>
-	                    <tr>
-	                      <td>9</td>
-	                      <td>Inspection, Test, Commissioning & Certification</td>
-	                      <td class="numeric">-</td>
-	                      <td class="numeric">1</td>
-	                      <td class="numeric">ea</td>
-	                      <td class="numeric">17.809.826.246</td>
-	                      <td class="numeric">17.809.826.246</td>
-	                      <td class="numeric">1.195.290</td>
-	                    </tr>
-	                    <tr>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td class="numeric">Total</td>
-	                      <td class="numeric">758.184.001.502</td>
-	                      <td></td>
-	                    </tr>
-	                    <tr>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td class="numeric">K&R (8%)</td>
-	                      <td class="numeric">60.654.720.120</td>
-	                      <td></td>
-	                    </tr>
-	                    <tr>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td class="numeric">Contingency: <input class="width-adjust-20" type="number"> %</td>
-	                      <td class="numeric">75.818.400.150</td>
-	                      <td>Mengakomodasi variasi harga</td>
-	                    </tr>
-	                    <tr>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td class="numeric">Management Reserve: <input class="width-adjust-20" type="number"> %</td>
-	                      <td class="numeric"></td>
-	                      <td>Mengakomodasi ketidakpastian TOR.<br>Ditentukan oleh user:<br>- Tingkat kepastian TOR Tinggi (0%)<br>- Tingkat kepastian TOR Sedang - Rendah (5% s/d 15%)</td>
-	                    </tr>
-	                    <tr>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td class="numeric">Grand Total (IDR)</td>
-	                      <td class="numeric">894.657.121.773</td>
-	                      <td></td>
-	                    </tr>
-	                    <tr>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td></td>
-	                      <td class="numeric">Grand Total (USD)</td>
-	                      <td class="numeric">60.044.102</td>
-	                      <td></td>
-	                    </tr>
+	                  <tbody id="calculation_tbody">
 	                  </tbody>
 	                </table>
 	              </section>
