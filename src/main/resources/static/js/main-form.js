@@ -1,5 +1,8 @@
 resetForm();
 
+var classEstimate = '';
+var facilityInput = '';
+
 function resetForm () {
 	$('#facility_container').hide();
 	$('#table_section').hide();
@@ -32,16 +35,14 @@ function convertPdf () {
 function changeEstimate (select) {
 	var estimateValue = $(select).val();
 	resetFormContainer();
+	classEstimate = estimateValue;
 	if (estimateValue == 'Class 4 Estimate') {
-		console.log('Class 4')
 		$('#facility_input').empty()
 		$('#facility_input').append(new Option('Pilih Fasilitas', 'Pilih Fasilitas'))
 		$('#facility_input').append(new Option('Terminal BBM', 'Terminal BBM'))
 		$('#facility_input').append(new Option('Depot LPG Pressurized', 'Depot LPG Pressurized'))
 		$('#facility_input').append(new Option('DPPU', 'DPPU'))
-		// $('#facility_input').append(new Option('Pipeline', 'Pipeline'))
 	} else if (estimateValue == 'Class 5 Estimate') {
-		console.log('Class 5')
 		$('#facility_input').empty()
 		$('#facility_input').append(new Option('Pilih Fasilitas', 'Pilih Fasilitas'))
 		$('#facility_input').append(new Option('Pipeline', 'Pipeline'))
@@ -65,6 +66,7 @@ function resetFormContainer () {
 
 function changeFacility (select) {
 	var facilityValue = $(select).val();
+	facilityInput = facilityValue;
 	switch (facilityValue) {
 		case 'Terminal BBM': 
 			showTerminalBbm();
@@ -168,6 +170,105 @@ function doReset () {
 }
 
 function doCalculate () {
-	$('#table_section').show();
+	formValidate();
 	return false;
+}
+
+function formValidate () {
+	var tableTitle  = '';
+	var tableTitleh4 = '';
+	var isItValid = false;
+
+	tableTitle = 'Calculation Result ' + classEstimate
+	if (classEstimate == '') {
+		isItValid = false;
+	} else {
+		switch (facilityInput) {
+			case 'Terminal BBM': 
+				if ($('#tankibbm_unit').val()) {
+					if ($('#trestle_input').val()) {
+						if ($('#kurs_input').val()) {
+							isItValid = true;
+							tableTitleh4 = facilityInput + ' - ' + $('#tangkibbm_cap').val() + ' KL - ' + $('#dermaga_input').val() + ' - ' + $('#trestle_input').val() + ' M'
+						} else {
+							isItValid = false;
+						}
+					} else {
+						isItValid = false;
+					}
+				} else {
+					isItValid = false;
+				}
+				break;
+			case 'Depot LPG Pressurized': 
+				if ($('#kurs_input').val()) {
+					isItValid = true;
+					tableTitleh4 = facilityInput + ' - ' + $('#lpg_cap').val() + ' MT'
+				} else {
+					isItValid = false;
+				}
+				break;
+			case 'DPPU': 
+				if ($('#tangkidppu_input').val()) {
+					if ($('#kurs_input').val()) {
+						isItValid = true;
+						tableTitleh4 = facilityInput + ' - ' + $('#kelas_dppu').val() + ' - ' + $('#tangkidppu_input').val() + ' KL'
+					} else {
+						isItValid = false;
+					}
+				} else {
+					isItValid = false;
+				}
+				break;
+			case 'Pipeline': 
+				if ($('#panjangpipeline_input').val()) {
+					if ($('#diameterpipeline_input').val()) {
+						if ($('#kurs_input').val()) {
+							isItValid = true;
+							tableTitleh4 = facilityInput + ' - ' + $('#jenispipeline_input').val() + ' - ' + $('#panjangpipeline_input').val() + ' M - ' + $('#diameterpipeline_input').val() + ' Inch'
+						} else {
+							isItValid = false;
+						}
+					} else {
+						isItValid = false;
+					}
+				} else {
+					isItValid = false;
+				}
+				break;
+			case 'Storage Tank': 
+				if ($('#tangkistoragetank_input').val()) {
+					if ($('#kurs_input').val()) {
+						isItValid = true;
+						tableTitleh4 = facilityInput + ' - ' + $('#jenisstoragetank_input').val() + ' - ' + $('#tangkistoragetank_input').val() + ' KL'
+					} else {
+						isItValid = false;
+					}
+				} else {
+					isItValid = false;
+				}
+				break;
+			case 'Jetty': 
+				if ($('#kurs_input').val()) {
+					isItValid = true;
+					tableTitleh4 = facilityInput + ' - ' + $('#jetty_input').val()
+				} else {
+					isItValid = false;
+				}
+				break;
+		}
+	}
+
+	if (isItValid) {
+		$("#table_title").html(tableTitle);
+		$("#table_title_h4").html(tableTitleh4);
+		$('#warning-alert').hide();
+		$('#table_section').show();
+	} else {
+		$('#warning-alert').show();
+	}
+}
+
+function dismissAlert () {
+	$('#warning-alert').hide();
 }

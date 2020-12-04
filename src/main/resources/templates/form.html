@@ -194,6 +194,10 @@
           <div class="col-lg-12">
             <div class="form-panel">
               <!-- <h4 class="mb"><i class="fa fa-angle-right"></i> Form Elements</h4> -->
+              <div id="warning-alert" class="alert alert-danger alert-dismissable" hidden>
+                <button type="button" class="close" onclick="dismissAlert()" aria-hidden="true">&times;</button>
+                <strong>Uuups!</strong> Ada data yang belum lengkap.
+              </div>
               <form class="form-horizontal style-form" method="get">
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Estimate Class</label>
@@ -228,10 +232,10 @@
                   <label class="col-sm-2 control-label">Kelas DPPU </label>
                   <div class="col-sm-1">
                     <!-- <input type="text" class="form-control"> -->
-                    <select class="form-control">
-                    	<option>Kelas V</option>
-                    	<option>Kelas IV</option>
-                    	<option>Kelas III</option>
+                    <select id="kelas_dppu" class="form-control">
+                    	<option value="Kelas V">Kelas V</option>
+                    	<option value="Kelas IV">Kelas IV</option>
+                    	<option value="Kelas III">Kelas III</option>
 	                </select>
                   </div>
                 </div>
@@ -239,7 +243,7 @@
                   <label class="col-sm-2 control-label">Kapasitas Depot LPG </label>
                   <div class="col-sm-1">
                     <!-- <input type="text" class="form-control"> -->
-                    <select class="form-control">
+                    <select id="lpg_cap" class="form-control">
                     	<option>3000</option>
                     	<option>4000</option>
                     	<option>5000</option>
@@ -250,9 +254,9 @@
                   </div>
                 </div>
                 <div class="form-group" id="tangkidppu_container" hidden>
-                  <label class="col-sm-2 control-label">Kapasitas Total Tangki </label>
+                  <label class="col-sm-2 control-label">Kapasitas Total Tangki (KL) </label>
                   <div class="col-sm-2 form-inline">
-                  	<input class="form-control width-adjust-50" type='number'/>
+                  	<input id="tangkidppu_input" class="form-control width-adjust-50" type='number'/>
                   	<label>KL</label>
                   </div>
                 </div>
@@ -260,16 +264,16 @@
                   <label class="col-sm-2 control-label">Jenis Tangki </label>
                   <div class="col-sm-3">
                     <!-- <input type="text" class="form-control"> -->
-                    <select class="form-control">
-                    	<option>Non Avtur - Include Foundation</option>
-                    	<option>Avtur Include Floating Suction, Foundation</option>
+                    <select id="jenisstoragetank_input" class="form-control">
+                    	<option value="Non Avtur - Include Foundation">Non Avtur - Include Foundation</option>
+                    	<option value="Avtur Include Floating Suction, Foundation">Avtur Include Floating Suction, Foundation</option>
 	                </select>
                   </div>
                 </div>
                 <div class="form-group" id="tangkistoragetank_container" hidden>
-                  <label class="col-sm-2 control-label">Kapasitas Total Tangki </label>
+                  <label class="col-sm-2 control-label">Kapasitas Total Tangki (KL) </label>
                   <div class="col-sm-2 form-inline">
-                  	<input class="form-control width-adjust-50" type='number'/>
+                  	<input id="tangkistoragetank_input" class="form-control width-adjust-50" type='number'/>
                   	<label>KL</label>
                   </div>
                 </div>
@@ -277,23 +281,23 @@
                   <label class="col-sm-2 control-label">Jenis Pipeline </label>
                   <div class="col-sm-3">
                     <!-- <input type="text" class="form-control"> -->
-                    <select class="form-control">
-                    	<option>Onshore Cross Country Pipeline (BBM)</option>
-                    	<option>Offshore Pipeline (BBM)</option>
+                    <select id="jenispipeline_input" class="form-control">
+                    	<option value="Onshore Cross Country Pipeline (BBM)">Onshore Cross Country Pipeline (BBM)</option>
+                    	<option value="Offshore Pipeline (BBM)">Offshore Pipeline (BBM)</option>
 	                </select>
                   </div>
                 </div>
                 <div class="form-group" id="panjangpipeline_container" hidden>
-                  <label class="col-sm-2 control-label">Panjang Pipeline </label>
+                  <label class="col-sm-2 control-label">Panjang Pipeline (M) </label>
                   <div class="col-sm-2 form-inline">
-                  	<input class="form-control width-adjust-50" type='number'/>
+                  	<input id="panjangpipeline_input" class="form-control width-adjust-50" type='number'/>
                   	<label>M</label>
                   </div>
                 </div>
                 <div class="form-group" id="diameterpipeline_container" hidden>
-                  <label class="col-sm-2 control-label">Diameter Pipeline </label>
+                  <label class="col-sm-2 control-label">Diameter Pipeline (Inch) </label>
                   <div class="col-sm-2 form-inline">
-                  	<input class="form-control width-adjust-50" type='number'/>
+                  	<input id="diameterpipeline_input" class="form-control width-adjust-50" type='number'/>
                   	<label>Inch</label>
                   </div>
                 </div>
@@ -301,26 +305,26 @@
                   <label class="col-sm-2 control-label">Kapasitas Total Tangki </label>
                   <div class="col-sm-1">
                     <!-- <input type="text" class="form-control"> -->
-                    <select class="form-control">
-                    	<option>500</option>
-                    	<option>1000</option>
-                    	<option>1500</option>
-                    	<option>2000</option>
-                    	<option>2500</option>
-                    	<option>5000</option>
-                    	<option>7500</option>
-                    	<option>10000</option>
-                    	<option>12500</option>
-                    	<option>15000</option>
-                    	<option>20000</option>
-                    	<option>25000</option>
-                    	<option>30000</option>
-                    	<option>40000</option>
-                    	<option selected>50000</option>
+                    <select id="tangkibbm_cap" class="form-control">
+                    	<option value="500">500</option>
+                    	<option value="1000">1000</option>
+                    	<option value="1500">1500</option>
+                    	<option value="2000">2000</option>
+                    	<option value="2500">2500</option>
+                    	<option value="5000">5000</option>
+                    	<option value="7500">7500</option>
+                    	<option value="10000">10000</option>
+                    	<option value="12500">12500</option>
+                    	<option value="15000">15000</option>
+                    	<option value="20000">20000</option>
+                    	<option value="25000">25000</option>
+                    	<option value="30000">30000</option>
+                    	<option value="40000">40000</option>
+                    	<option value="50000" selected>50000</option>
 	                </select>
                   </div>
                   <div class="col-sm-2 form-inline">
-                  	<input class="form-control width-adjust-50" type='text'/>
+                  	<input id="tankibbm_unit" class="form-control width-adjust-50" type='text'/>
                   	<label>Unit</label>
                   </div>
                 </div>
@@ -328,12 +332,12 @@
                   <label class="col-sm-2 control-label">Jenis Dermaga </label>
                   <div class="col-sm-3">
                     <!-- <input type="text" class="form-control"> -->
-                    <select class="form-control">
-                    	<option selected>Type LR & MR (50.000 DWT-100.000 DWT)</option>
-                    	<option>Type MR & GP (17.500 DWT-50.000 DWT)</option>
-                    	<option>Type Small 2 (6.500 DWT)</option>
-                    	<option>Type Small 1 (3.500 DWT)</option>
-                    	<option>Type Lighter (1.500 DWT)</option>
+                    <select id="dermaga_input" class="form-control">
+                    	<option value="Type LR & MR (50.000 DWT-100.000 DWT)" selected>Type LR & MR (50.000 DWT-100.000 DWT)</option>
+                    	<option value="Type MR & GP (17.500 DWT-50.000 DWT)">Type MR & GP (17.500 DWT-50.000 DWT)</option>
+                    	<option value="Type Small 2 (6.500 DWT)">Type Small 2 (6.500 DWT)</option>
+                    	<option value="Type Small 1 (3.500 DWT)">Type Small 1 (3.500 DWT)</option>
+                    	<option value="Type Lighter (1.500 DWT)">Type Lighter (1.500 DWT)</option>
 	                </select>
                   </div>
                 </div>
@@ -341,19 +345,19 @@
                   <label class="col-sm-2 control-label">Spesifikasi Jetty </label>
                   <div class="col-sm-3">
                     <!-- <input type="text" class="form-control"> -->
-                    <select class="form-control">
-                    	<option selected>Type LR & MR (50.000 DWT-100.000 DWT)</option>
-                    	<option>Type MR & GP (17.500 DWT-50.000 DWT)</option>
-                    	<option>Type Small 2 (6.500 DWT)</option>
-                    	<option>Type Small 1 (3.500 DWT)</option>
-                    	<option>Type Lighter (1.500 DWT)</option>
+                    <select id="jetty_input" class="form-control">
+                    	<option value="Type LR & MR (50.000 DWT-100.000 DWT)" selected>Type LR & MR (50.000 DWT-100.000 DWT)</option>
+                    	<option value="Type MR & GP (17.500 DWT-50.000 DWT)">Type MR & GP (17.500 DWT-50.000 DWT)</option>
+                    	<option value="Type Small 2 (6.500 DWT)">Type Small 2 (6.500 DWT)</option>
+                    	<option value="Type Small 1 (3.500 DWT)">Type Small 1 (3.500 DWT)</option>
+                    	<option value="Type Lighter (1.500 DWT)">Type Lighter (1.500 DWT)</option>
 	                </select>
                   </div>
                 </div>
                 <div class="form-group form-inline" id="trestle_container" hidden>
                   <label class="col-sm-2 col-sm-2 control-label">Penjang Trestle Dermaga </label>
                   <div class="col-sm-2">
-                    <input type="text" class="form-control width-adjust-50">
+                    <input type="number" id="trestle_input" class="form-control width-adjust-50">
                     <label>M</label>
                   </div>
                 </div>
@@ -361,7 +365,7 @@
                   <label class="col-sm-2 col-sm-2 control-label">Nilai Kurs 1 USD = Rupiah </label>
                   <div class="col-sm-2">
                   	<label>1 US$ = </label>
-                    <input type="number" class="form-control width-adjust-50">
+                    <input id="kurs_input" type="number" class="form-control width-adjust-50">
                     <label>IDR</label>
                   </div>
                 </div>
@@ -424,7 +428,8 @@
         </div>
         <!-- /row -->
         <section class="wrapper" id="table_section">
-	        <h3><i class="fa fa-angle-right"></i> TERMINAL BBM KAPASITAS 200.000 KL (BASIS HARGA TANJUNG UBAN)</h3>
+	        <h3 id="table_title"><i class="fa fa-angle-right"></i> TERMINAL BBM KAPASITAS 200.000 KL (BASIS HARGA TANJUNG UBAN)</h3>
+	        <h4 id="table_title_h4"></h4>
 	        <div class="row mt">
 	          <div class="col-lg-12">
 	            <div class="content-panel" style="padding-left:10px; padding-right: 10px;">
