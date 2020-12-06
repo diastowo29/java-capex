@@ -597,6 +597,7 @@ function calculateFinal (priceIdr) {
 
 function reformatCurrCell (cellToFormat, curr) {
 	// console.log($(cellToFormat).html())
+	$(cellToFormat).css('text-align', 'right');
 	if (!cellToFormat) {
 		$("#grandTotalIdr").html(parseFloat($("#grandTotalIdr").html()).toLocaleString('en-US', {style: 'currency', currency: 'IDR'})); 
 		$("#grandTotalUsd").html(parseFloat($("#grandTotalUsd").html()).toLocaleString('en-US', {style: 'currency', currency: 'USD'})); 
