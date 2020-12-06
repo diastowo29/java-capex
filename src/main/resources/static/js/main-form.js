@@ -226,6 +226,63 @@ function formValidate () {
 				if ($('#kurs_input').val()) {
 					isItValid = true;
 					tableTitleh4 = facilityInput + ' - ' + $('#lpg_cap').val() + ' MT'
+					$.ajax({
+						url: "/api/v1/depot/" + $('#lpg_cap').val(),
+						contentType: "application/json",
+						dataType: 'json',
+						success: function(result){
+							console.log(result);
+							var calculationTbody = document.getElementById('calculation_tbody');
+
+							var totalPriceIdr = 0;
+							result.forEach(itemCalc => {
+								var row = document.createElement('tr');
+								var cellId = document.createElement('td');
+								var cellItem = document.createElement('td');
+								var cellRemarks = document.createElement('td');
+								var cellQty = document.createElement('td');
+								var cellSatuan = document.createElement('td');
+								var cellPriceIdr = document.createElement('td');
+								var cellPriceIdrTotal = document.createElement('td');
+								var cellPriceUsdTotal = document.createElement('td');
+
+								totalPriceIdr = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) * parseInt(itemCalc.qty) + totalPriceIdr;
+
+								cellId.innerHTML = itemCalc.position;
+								cellItem.innerHTML = itemCalc.name;
+								cellRemarks.innerHTML = itemCalc.remarks;
+								cellQty.innerHTML = itemCalc.qty;
+								cellSatuan.innerHTML = itemCalc.satuan;
+								cellPriceIdr.innerHTML = parseFloat(itemCalc.price_idr).toFixed(0);
+								cellPriceIdrTotal.innerHTML = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) * parseInt(itemCalc.qty);
+								cellPriceUsdTotal.innerHTML = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) / parseInt($('#kurs_input').val());
+
+								row.appendChild(cellId)
+								row.appendChild(cellItem)
+								row.appendChild(cellRemarks)
+								row.appendChild(cellQty)
+								row.appendChild(cellSatuan)
+								row.appendChild(cellPriceIdr)
+								row.appendChild(cellPriceIdrTotal)
+								row.appendChild(cellPriceUsdTotal)
+
+								
+								reformatCurrCell(cellPriceIdr, "IDR");
+								reformatCurrCell(cellPriceIdrTotal, "IDR");
+								reformatCurrCell(cellPriceUsdTotal, "USD");
+
+								calculationTbody.appendChild(row);
+							});
+							
+							taxTotal(row, calculationTbody, 'Total', parseFloat(totalPriceIdr).toFixed(0));
+							taxTotal(row, calculationTbody, 'K&R (8%)', parseFloat(totalPriceIdr).toFixed(0));
+							taxTotal(row, calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
+							taxTotal(row, calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
+							taxTotal(row, calculationTbody, 'Grand Total (IDR)', parseFloat(totalPriceIdr).toFixed(0));
+							taxTotal(row, calculationTbody, 'Grand Total (USD)', parseFloat(totalPriceIdr).toFixed(0));
+				
+						}
+					})
 				} else {
 					isItValid = false;
 				}
@@ -289,6 +346,10 @@ function formValidate () {
 							row.appendChild(cellPriceIdr)
 							row.appendChild(cellPriceIdrTotal)
 							row.appendChild(cellPriceUsdTotal)
+
+							reformatCurrCell(cellPriceIdr, "IDR");
+							reformatCurrCell(cellPriceIdrTotal, "IDR");
+							reformatCurrCell(cellPriceUsdTotal, "USD");
 				
 							calculationTbody.appendChild(row);
 
@@ -355,6 +416,10 @@ function formValidate () {
 						row.appendChild(cellPriceIdr)
 						row.appendChild(cellPriceIdrTotal)
 						row.appendChild(cellPriceUsdTotal)
+
+						reformatCurrCell(cellPriceIdr, "IDR");
+						reformatCurrCell(cellPriceIdrTotal, "IDR");
+						reformatCurrCell(cellPriceUsdTotal, "USD");
 			
 						calculationTbody.appendChild(row);
 
@@ -426,6 +491,10 @@ function formValidate () {
 					row.appendChild(cellPriceIdr)
 					row.appendChild(cellPriceIdrTotal)
 					row.appendChild(cellPriceUsdTotal)
+					
+					reformatCurrCell(cellPriceIdr, "IDR");
+					reformatCurrCell(cellPriceIdrTotal, "IDR");
+					reformatCurrCell(cellPriceUsdTotal, "USD");
 		
 					calculationTbody.appendChild(row);
 
@@ -461,32 +530,41 @@ function taxTotal (row, calculationTbody, labelHtml, priceIdr) {
 	cellLabel.style.textAlign = 'right';
 
 	cellLabel.innerHTML = labelHtml;
-	console.log(labelHtml)
+
+	// console.log(labelHtml)
 	if (labelHtml == 'Total') {
 		cellTaxIdr.innerHTML = priceIdr;
 		cellTaxUsd.innerHTML = '';
+		reformatCurrCell(cellTaxIdr, 'IDR');
 	} else if (labelHtml == 'K&R (8%)') {
 		cellTaxIdr.innerHTML = priceIdr * 0.08;
 		krFinal = priceIdr * 0.08;
 		cellTaxUsd.innerHTML = '';
+		reformatCurrCell(cellTaxIdr, 'IDR');
 	} else if (labelHtml.includes('Contingency')) {
-		cellTaxIdr.innerHTML = '';
+		cellTaxIdr.innerHTML = 0;
 		cellTaxIdr.id = 'calculateContingen'
 		cellTaxUsd.innerHTML = 'Mengakomodasi variasi harga';
+		reformatCurrCell(cellTaxIdr, 'IDR');
 	} else if (labelHtml == 'Grand Total (IDR)'){
-		cellTaxIdr.innerHTML = priceIdr + contingencyFinal + mgmRsvFinal + krFinal;
+		console.log(priceIdr)
+		console.log(contingencyFinal)
+		console.log(mgmRsvFinal)
+		console.log(krFinal)
+		cellTaxIdr.innerHTML = parseFloat(priceIdr) + parseFloat(contingencyFinal) + parseFloat(mgmRsvFinal) + krFinal;
 		cellTaxUsd.innerHTML = '';
 		cellTaxIdr.id = 'grandTotalIdr';
 		reformatCurrCell(cellTaxIdr, 'IDR');
 	} else if (labelHtml == 'Grand Total (USD)') {
-		cellTaxIdr.innerHTML = (priceIdr + contingencyFinal + mgmRsvFinal + krFinal)/kursFinal;
+		cellTaxIdr.innerHTML = (parseFloat(priceIdr) + parseFloat(contingencyFinal) + parseFloat(mgmRsvFinal) + krFinal)/parseFloat(kursFinal);
 		cellTaxUsd.innerHTML = '';
 		cellTaxIdr.id = 'grandTotalUsd';
 		reformatCurrCell(cellTaxIdr, 'USD');
 	} else {
-		cellTaxIdr.innerHTML = '';
+		cellTaxIdr.innerHTML = 0;
 		cellTaxIdr.id = 'calculateMgm'
 		cellTaxUsd.innerHTML = 'Mengakomodasi ketidakpastian TOR.<br>Ditentukan oleh user:<br>- Tingkat kepastian TOR Tinggi (0%)<br>- Tingkat kepastian TOR Sedang - Rendah (5% s/d 15%)';
+		reformatCurrCell(cellTaxIdr, 'IDR');
 	}
 
 
@@ -500,12 +578,14 @@ function taxTotal (row, calculationTbody, labelHtml, priceIdr) {
 function contingencyChange (input, priceIdr) {
 	contingencyFinal = priceIdr * ($(input).val()/100)
 	$('#calculateContingen').html(contingencyFinal);
+	reformatCurrCell("#calculateContingen", 'IDR');
 	calculateFinal(priceIdr);
 }
 
 function mgmChange (input, priceIdr) {
 	mgmRsvFinal = priceIdr * ($(input).val()/100)
 	$('#calculateMgm').html(mgmRsvFinal);
+	reformatCurrCell("#calculateMgm", 'IDR');
 	calculateFinal(priceIdr);
 }
 
@@ -516,7 +596,7 @@ function calculateFinal (priceIdr) {
 }
 
 function reformatCurrCell (cellToFormat, curr) {
-	console.log($(cellToFormat).html())
+	// console.log($(cellToFormat).html())
 	if (!cellToFormat) {
 		$("#grandTotalIdr").html(parseFloat($("#grandTotalIdr").html()).toLocaleString('en-US', {style: 'currency', currency: 'IDR'})); 
 		$("#grandTotalUsd").html(parseFloat($("#grandTotalUsd").html()).toLocaleString('en-US', {style: 'currency', currency: 'USD'})); 
