@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.DepotLpg;
 import com.example.model.StorageTank;
+import com.example.model.TerminalBbm;
 import com.example.repository.DepotLpgRepository;
 import com.example.repository.StorageTankRepository;
+import com.example.repository.TbbmRepository;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -31,6 +33,8 @@ public class MyRestController {
 	private StorageTankRepository storageTankRepo;
 	@Autowired
 	private DepotLpgRepository depotRepository;
+	@Autowired
+	private TbbmRepository tbbmRepository;
 
 	@GetMapping("/gettank")
 	public List<StorageTank> getAllTank() {
@@ -43,8 +47,18 @@ public class MyRestController {
 	}
 
 	@PostMapping("/depot/add")
-	public DepotLpg createEmployee(@Validated @RequestBody DepotLpg depot) {
+	public DepotLpg createDepot(@Validated @RequestBody DepotLpg depot) {
 		return depotRepository.save(depot);
+	}
+
+	@PostMapping("/tbbm/add")
+	public TerminalBbm createTbbm(@Validated @RequestBody TerminalBbm tbbm) {
+		return tbbmRepository.save(tbbm);
+	}
+
+	@GetMapping("/tbbm/all")
+	public List<TerminalBbm> getAllTbbm() {
+		return tbbmRepository.findAll();
 	}
 
 	@GetMapping("/depot/{cap}")

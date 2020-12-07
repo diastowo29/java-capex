@@ -212,6 +212,64 @@ function formValidate () {
 						if ($('#kurs_input').val()) {
 							isItValid = true;
 							tableTitleh4 = facilityInput + ' - ' + $('#tangkibbm_cap').val() + ' KL - ' + $('#dermaga_input').val() + ' - ' + $('#trestle_input').val() + ' M'
+
+							$.ajax({
+								url: "/api/v1/tbbm/all",
+								contentType: "application/json",
+								dataType: 'json',
+								success: function(result){
+									console.log(result);
+									var calculationTbody = document.getElementById('calculation_tbody');
+		
+									var totalPriceIdr = 0;
+									result.forEach(itemCalc => {
+										var row = document.createElement('tr');
+										var cellId = document.createElement('td');
+										var cellItem = document.createElement('td');
+										var cellRemarks = document.createElement('td');
+										var cellQty = document.createElement('td');
+										var cellSatuan = document.createElement('td');
+										var cellPriceIdr = document.createElement('td');
+										var cellPriceIdrTotal = document.createElement('td');
+										var cellPriceUsdTotal = document.createElement('td');
+		
+										totalPriceIdr = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) * parseInt(itemCalc.qty) + totalPriceIdr;
+		
+										cellId.innerHTML = itemCalc.position;
+										cellItem.innerHTML = itemCalc.name;
+										cellRemarks.innerHTML = itemCalc.remarks;
+										cellQty.innerHTML = itemCalc.qty;
+										cellSatuan.innerHTML = itemCalc.satuan;
+										cellPriceIdr.innerHTML = parseFloat(itemCalc.price_idr).toFixed(0);
+										cellPriceIdrTotal.innerHTML = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) * parseInt(itemCalc.qty);
+										cellPriceUsdTotal.innerHTML = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) / parseInt($('#kurs_input').val());
+		
+										row.appendChild(cellId)
+										row.appendChild(cellItem)
+										row.appendChild(cellRemarks)
+										row.appendChild(cellQty)
+										row.appendChild(cellSatuan)
+										row.appendChild(cellPriceIdr)
+										row.appendChild(cellPriceIdrTotal)
+										row.appendChild(cellPriceUsdTotal)
+		
+										
+										reformatCurrCell(cellPriceIdr, "IDR");
+										reformatCurrCell(cellPriceIdrTotal, "IDR");
+										reformatCurrCell(cellPriceUsdTotal, "USD");
+		
+										calculationTbody.appendChild(row);
+									});
+									
+									taxTotal(row, calculationTbody, 'Total', parseFloat(totalPriceIdr).toFixed(0));
+									taxTotal(row, calculationTbody, 'K&R (8%)', parseFloat(totalPriceIdr).toFixed(0));
+									taxTotal(row, calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
+									taxTotal(row, calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
+									taxTotal(row, calculationTbody, 'Grand Total (IDR)', parseFloat(totalPriceIdr).toFixed(0));
+									taxTotal(row, calculationTbody, 'Grand Total (USD)', parseFloat(totalPriceIdr).toFixed(0));
+						
+								}
+							})
 						} else {
 							isItValid = false;
 						}
