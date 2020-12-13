@@ -285,7 +285,7 @@ function formValidate () {
 					isItValid = true;
 					tableTitleh4 = facilityInput + ' - ' + $('#lpg_cap').val() + ' MT'
 					$.ajax({
-						url: "/api/v1/depot/" + $('#lpg_cap').val(),
+						url: '/api/v2/depot/' + $('#lpg_cap').val() + '/' + $('#kurs_input').val(),
 						contentType: "application/json",
 						dataType: 'json',
 						success: function(result){
