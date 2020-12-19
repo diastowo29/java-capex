@@ -6,4 +6,5 @@ import com.example.model.Inflasi;
 
 public interface InflasiRepository extends JpaRepository<Inflasi, Long> {
 
+	Inflasi findByTahun(int tahun);
 }

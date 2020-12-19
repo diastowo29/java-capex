@@ -54,6 +54,7 @@ function changeEstimate (select) {
 		$('#facility_input').append(new Option('Terminal BBM', 'Terminal BBM'))
 		$('#facility_input').append(new Option('Depot LPG Pressurized', 'Depot LPG Pressurized'))
 		$('#facility_input').append(new Option('DPPU', 'DPPU'))
+		$('#facility_input').append(new Option('Jetty', 'Jetty4'))
 	} else if (estimateValue == 'Class 5 Estimate') {
 		$('#class_method_label').text('Capacity Factored, Parametric')
 		$('#class_acc_label').text('-50% to +100%')
@@ -81,6 +82,7 @@ function resetFormContainer () {
 	hidePipeline();
 	hideStorageTank();
 	$('#jetty_container').hide();
+	hideJetty4();
 }
 
 function changeFacility (select) {
@@ -94,6 +96,7 @@ function changeFacility (select) {
 			hidePipeline();
 			hideStorageTank();
 			$('#jetty_container').hide();
+			hideJetty4();
 			break;
 		case 'Depot LPG Pressurized': 
 			hideTerminalBbm();
@@ -102,6 +105,7 @@ function changeFacility (select) {
 			hidePipeline();
 			hideStorageTank();
 			$('#jetty_container').hide();
+			hideJetty4();
 			break;
 		case 'DPPU': 
 			hideTerminalBbm();
@@ -110,6 +114,7 @@ function changeFacility (select) {
 			hidePipeline();
 			hideStorageTank();
 			$('#jetty_container').hide();
+			hideJetty4();
 			break;
 		case 'Pipeline': 
 			hideTerminalBbm();
@@ -118,6 +123,7 @@ function changeFacility (select) {
 			showPipeline();
 			hideStorageTank();
 			$('#jetty_container').hide();
+			hideJetty4();
 			break;
 		case 'Storage Tank': 
 			hideTerminalBbm();
@@ -126,6 +132,7 @@ function changeFacility (select) {
 			hidePipeline();
 			showStorageTank();
 			$('#jetty_container').hide();
+			hideJetty4();
 			break;
 		case 'Jetty': 
 			hideTerminalBbm();
@@ -134,9 +141,36 @@ function changeFacility (select) {
 			hidePipeline();
 			hideStorageTank();
 			$('#jetty_container').show();
+			hideJetty4();
 			break;
+		case 'Jetty4': 
+			hideTerminalBbm();
+			$('#depotlpg_container').hide();
+			hideDppu();
+			hidePipeline();
+			hideStorageTank();
+			$('#jetty_container').hide();
+			showJetty4();
+			break;
+
 	}
 	$('#kurs_container').show();
+}
+
+function showJetty4 () {
+	$('#jettyhead_container').show();
+	$('#mooringdolphin_container').show();
+	$('#breastingdolphin_container').show();
+	$('#trestletype_container').show();
+	$('#catwalk_container').show();
+}
+
+function hideJetty4 () {
+	$('#jettyhead_container').hide();
+	$('#mooringdolphin_container').hide();
+	$('#breastingdolphin_container').hide();
+	$('#trestletype_container').hide();
+	$('#catwalk_container').hide();
 }
 
 function showDppu () {
@@ -206,70 +240,122 @@ function formValidate () {
 		isItValid = false;
 	} else {
 		switch (facilityInput) {
-			case 'Terminal BBM': 
+			case 'Terminal BBM':
 				if ($('#tankibbm_unit').val()) {
 					if ($('#trestle_input').val()) {
 						if ($('#kurs_input').val()) {
 							isItValid = true;
-							tableTitleh4 = facilityInput + ' - ' + $('#tangkibbm_cap').val() + ' KL - ' + $('#dermaga_input').val() + ' - ' + $('#trestle_input').val() + ' M'
+
+							var tangkiCapArr = $('select[id=tangkibbm_cap]').map(function() {
+								return this.value;
+							}).get();
+							
+							var tangkiUnitArr = $('input[id=tankibbm_unit]').map(function() {
+								var thisValue = '';
+								thisValue = this.value;
+								if (this.value == '') {
+									thisValue = '0'
+								}
+								return thisValue;
+							}).get();
+
+							var dermagaTypeArr = $('select[id=dermaga_input]').map(function() {
+								return this.value;
+							}).get();
+							
+							var trestleInputArr = $('input[id=trestle_input]').map(function() {
+								var thisValue = '';
+								thisValue = this.value;
+								if (this.value == '') {
+									thisValue = '0'
+								}
+								return thisValue;
+							}).get();
+
+							var totalTangkiCap = 0;
+							var tangkiParameter = 0;
+							tangkiCapArr.forEach((tangkiCap, index) => {
+								totalTangkiCap = totalTangkiCap + (tangkiCap * tangkiUnitArr[index])
+							});
+							tableTitleh4 = facilityInput + ' - ' + totalTangkiCap + ' KL - ' + $('#dermaga_input').val() + ' - ' + $('#trestle_input').val() + ' M'
+
+							console.log(totalTangkiCap)
+							if (totalTangkiCap <= 100000) {
+								tangkiParameter = 100000;
+							} else if (totalTangkiCap <= 200000) {
+								tangkiParameter = 200000;
+							} else {
+								tangkiParameter = 400000;
+							}
+
 
 							$.ajax({
-								url: "/api/v1/tbbm/all",
-								contentType: "application/json",
+								url: '/api/v1/storage_tank',
+								contentType: 'application/json',
 								dataType: 'json',
-								success: function(result){
-									console.log(result);
-									var calculationTbody = document.getElementById('calculation_tbody');
-		
-									var totalPriceIdr = 0;
-									result.forEach(itemCalc => {
-										var row = document.createElement('tr');
-										var cellId = document.createElement('td');
-										var cellItem = document.createElement('td');
-										var cellRemarks = document.createElement('td');
-										var cellQty = document.createElement('td');
-										var cellSatuan = document.createElement('td');
-										var cellPriceIdr = document.createElement('td');
-										var cellPriceIdrTotal = document.createElement('td');
-										var cellPriceUsdTotal = document.createElement('td');
-		
-										totalPriceIdr = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) * parseInt(itemCalc.qty) + totalPriceIdr;
-		
-										cellId.innerHTML = itemCalc.position;
-										cellItem.innerHTML = itemCalc.name;
-										cellRemarks.innerHTML = itemCalc.remarks;
-										cellQty.innerHTML = itemCalc.qty;
-										cellSatuan.innerHTML = itemCalc.satuan;
-										cellPriceIdr.innerHTML = parseFloat(itemCalc.price_idr).toFixed(0);
-										cellPriceIdrTotal.innerHTML = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) * parseInt(itemCalc.qty);
-										cellPriceUsdTotal.innerHTML = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) / parseInt($('#kurs_input').val());
-		
-										row.appendChild(cellId)
-										row.appendChild(cellItem)
-										row.appendChild(cellRemarks)
-										row.appendChild(cellQty)
-										row.appendChild(cellSatuan)
-										row.appendChild(cellPriceIdr)
-										row.appendChild(cellPriceIdrTotal)
-										row.appendChild(cellPriceUsdTotal)
-		
-										
-										reformatCurrCell(cellPriceIdr, "IDR");
-										reformatCurrCell(cellPriceIdrTotal, "IDR");
-										reformatCurrCell(cellPriceUsdTotal, "USD");
-		
-										calculationTbody.appendChild(row);
+								success: function (tankResult) {
+									var panjangParameter = '';
+									trestleInputArr.forEach((trestleInput, index) => {
+										panjangParameter+='panjang=' + trestleInput
+										if (index < trestleInputArr.length-1) {
+											panjangParameter+='&'
+										}
 									});
-									
-									taxTotal(row, calculationTbody, 'Total', parseFloat(totalPriceIdr).toFixed(0));
-									taxTotal(row, calculationTbody, 'K&R (8%)', parseFloat(totalPriceIdr).toFixed(0));
-									taxTotal(row, calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
-									taxTotal(row, calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
-									taxTotal(row, calculationTbody, 'Grand Total (IDR)', parseFloat(totalPriceIdr).toFixed(0));
-									taxTotal(row, calculationTbody, 'Grand Total (USD)', parseFloat(totalPriceIdr).toFixed(0));
-						
+									console.log(panjangParameter)
+									$.ajax({
+										url: '/api/v1/jettytbbm/' + $('#kurs_input').val() + '?' + panjangParameter,
+										contentType: 'application/json',
+										dataType: 'json',
+										success: function (jettyResult) {
+											$.ajax({
+												url: '/api/v1//tbbm/' + tangkiParameter + '/' + $('#kurs_input').val(),
+												contentType: 'application/json',
+												dataType: 'json',
+												success: function (tbbmResult) {
+		
+													tangkiCapArr.forEach((tangkiCap, index) => {
+														tankResult.forEach(tank => {
+															if (tangkiCap == tank.kapasitas) {
+																var newTank = {
+																	"position": "",
+																	"name": "Storage Tank " + tank.kapasitas + ' KL',
+																	"cap": tangkiParameter,
+																	"remarks": "",
+																	"qty": tangkiUnitArr[index],
+																	"satuan": "ea",
+																	"price_idr": tank.harga,
+																	"price_formula": ""
+																}
+																tbbmResult.splice(1, 0, newTank);
+															}
+														});
+													});
+
+													dermagaTypeArr.forEach((dramagaType, index) => {
+														jettyResult.forEach(jetty => {
+															var jettyPriceJson = JSON.parse(jetty.multi_price);
+															if (dramagaType == jetty.name) {
+																var newJetty = {
+																	"position": "",
+																	"name": jetty.name,
+																	"cap": "",
+																	"remarks": 'Asumsi trestle ' + trestleInputArr[index] + ' M',
+																	"qty": '1',
+																	"satuan": "ea",
+																	"price_idr": jettyPriceJson[trestleInputArr[index]],
+																	"price_formula": ""
+																}
+																tbbmResult.splice((tbbmResult.length-1), 0, newJetty);
+															}
+														});
+													});
+													generateCalculationTable(tbbmResult)
+												}
+											});
+										}
+									});
 								}
-							})
+							});
 						} else {
 							isItValid = false;
 						}
@@ -332,12 +418,12 @@ function formValidate () {
 								calculationTbody.appendChild(row);
 							});
 							
-							taxTotal(row, calculationTbody, 'Total', parseFloat(totalPriceIdr).toFixed(0));
-							taxTotal(row, calculationTbody, 'K&R (8%)', parseFloat(totalPriceIdr).toFixed(0));
-							taxTotal(row, calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
-							taxTotal(row, calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
-							taxTotal(row, calculationTbody, 'Grand Total (IDR)', parseFloat(totalPriceIdr).toFixed(0));
-							taxTotal(row, calculationTbody, 'Grand Total (USD)', parseFloat(totalPriceIdr).toFixed(0));
+							taxTotal(calculationTbody, 'Total', parseFloat(totalPriceIdr).toFixed(0));
+							taxTotal(calculationTbody, 'K&R (8%)', parseFloat(totalPriceIdr).toFixed(0));
+							taxTotal(calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
+							taxTotal(calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
+							taxTotal(calculationTbody, 'Grand Total (IDR)', parseFloat(totalPriceIdr).toFixed(0));
+							taxTotal(calculationTbody, 'Grand Total (USD)', parseFloat(totalPriceIdr).toFixed(0));
 				
 						}
 					})
@@ -411,12 +497,12 @@ function formValidate () {
 				
 							calculationTbody.appendChild(row);
 
-							taxTotal(row, calculationTbody, 'Total', totalPriceIdr);
-							taxTotal(row, calculationTbody, 'K&R (8%)', totalPriceIdr);
-							taxTotal(row, calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + totalPriceIdr + ')") /> %', totalPriceIdr);
-							taxTotal(row, calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + totalPriceIdr + ')") /> %', totalPriceIdr);
-							taxTotal(row, calculationTbody, 'Grand Total (IDR)', totalPriceIdr);
-							taxTotal(row, calculationTbody, 'Grand Total (USD)', totalPriceIdr);
+							taxTotal(calculationTbody, 'Total', totalPriceIdr);
+							taxTotal(calculationTbody, 'K&R (8%)', totalPriceIdr);
+							taxTotal(calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + totalPriceIdr + ')") /> %', totalPriceIdr);
+							taxTotal(calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + totalPriceIdr + ')") /> %', totalPriceIdr);
+							taxTotal(calculationTbody, 'Grand Total (IDR)', totalPriceIdr);
+							taxTotal(calculationTbody, 'Grand Total (USD)', totalPriceIdr);
 
 						} else {
 							isItValid = false;
@@ -481,12 +567,12 @@ function formValidate () {
 			
 						calculationTbody.appendChild(row);
 
-						taxTotal(row, calculationTbody, 'Total', totalPriceIdr);
-						taxTotal(row, calculationTbody, 'K&R (8%)', totalPriceIdr);
-						taxTotal(row, calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + totalPriceIdr + ')") /> %', totalPriceIdr);
-						taxTotal(row, calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + totalPriceIdr + ')") /> %', totalPriceIdr);
-						taxTotal(row, calculationTbody, 'Grand Total (IDR)', totalPriceIdr);
-						taxTotal(row, calculationTbody, 'Grand Total (USD)', totalPriceIdr);
+						taxTotal(calculationTbody, 'Total', totalPriceIdr);
+						taxTotal(calculationTbody, 'K&R (8%)', totalPriceIdr);
+						taxTotal(calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + totalPriceIdr + ')") /> %', totalPriceIdr);
+						taxTotal(calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + totalPriceIdr + ')") /> %', totalPriceIdr);
+						taxTotal(calculationTbody, 'Grand Total (IDR)', totalPriceIdr);
+						taxTotal(calculationTbody, 'Grand Total (USD)', totalPriceIdr);
 					} else {
 						isItValid = false;
 					}
@@ -556,12 +642,12 @@ function formValidate () {
 		
 					calculationTbody.appendChild(row);
 
-					taxTotal(row, calculationTbody, 'Total', totalPriceIdr);
-					// taxTotal(row, calculationTbody, 'K&R (8%)', totalPriceIdr);
-					// taxTotal(row, calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + totalPriceIdr + ')") /> %', totalPriceIdr);
-					// taxTotal(row, calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + totalPriceIdr + ')") /> %', totalPriceIdr);
-					taxTotal(row, calculationTbody, 'Grand Total (IDR)', totalPriceIdr);
-					taxTotal(row, calculationTbody, 'Grand Total (USD)', totalPriceIdr);
+					taxTotal(calculationTbody, 'Total', totalPriceIdr);
+					// taxTotal(calculationTbody, 'K&R (8%)', totalPriceIdr);
+					// taxTotal(calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + totalPriceIdr + ')") /> %', totalPriceIdr);
+					// taxTotal(calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + totalPriceIdr + ')") /> %', totalPriceIdr);
+					taxTotal(calculationTbody, 'Grand Total (IDR)', totalPriceIdr);
+					taxTotal(calculationTbody, 'Grand Total (USD)', totalPriceIdr);
 				} else {
 					isItValid = false;
 				}
@@ -579,8 +665,59 @@ function formValidate () {
 	}
 }
 
-function taxTotal (row, calculationTbody, labelHtml, priceIdr) {
-	row = document.createElement('tr');
+function generateCalculationTable (itemResult) {
+	var calculationTbody = document.getElementById('calculation_tbody');
+
+	var totalPriceIdr = 0;
+	itemResult.forEach((itemCalc, index) => {
+		var row = document.createElement('tr');
+		var cellId = document.createElement('td');
+		var cellItem = document.createElement('td');
+		var cellRemarks = document.createElement('td');
+		var cellQty = document.createElement('td');
+		var cellSatuan = document.createElement('td');
+		var cellPriceIdr = document.createElement('td');
+		var cellPriceIdrTotal = document.createElement('td');
+		var cellPriceUsdTotal = document.createElement('td');
+
+		totalPriceIdr = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) * parseInt(itemCalc.qty) + totalPriceIdr;
+
+		cellId.innerHTML = itemCalc.position;
+		cellItem.innerHTML = itemCalc.name;
+		cellRemarks.innerHTML = itemCalc.remarks;
+		cellQty.innerHTML = itemCalc.qty;
+		cellSatuan.innerHTML = itemCalc.satuan;
+		cellPriceIdr.innerHTML = parseFloat(itemCalc.price_idr).toFixed(0);
+		cellPriceIdrTotal.innerHTML = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) * parseInt(itemCalc.qty);
+		cellPriceUsdTotal.innerHTML = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) / parseInt($('#kurs_input').val());
+
+		row.appendChild(cellId)
+		row.appendChild(cellItem)
+		row.appendChild(cellRemarks)
+		row.appendChild(cellQty)
+		row.appendChild(cellSatuan)
+		row.appendChild(cellPriceIdr)
+		row.appendChild(cellPriceIdrTotal)
+		row.appendChild(cellPriceUsdTotal)
+
+		
+		reformatCurrCell(cellPriceIdr, "IDR");
+		reformatCurrCell(cellPriceIdrTotal, "IDR");
+		reformatCurrCell(cellPriceUsdTotal, "USD");
+
+		calculationTbody.appendChild(row);
+	});
+	
+	taxTotal(calculationTbody, 'Total', parseFloat(totalPriceIdr).toFixed(0));
+	taxTotal(calculationTbody, 'K&R (8%)', parseFloat(totalPriceIdr).toFixed(0));
+	taxTotal(calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
+	taxTotal(calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
+	taxTotal(calculationTbody, 'Grand Total (IDR)', parseFloat(totalPriceIdr).toFixed(0));
+	taxTotal(calculationTbody, 'Grand Total (USD)', parseFloat(totalPriceIdr).toFixed(0));
+}
+
+function taxTotal (calculationTbody, labelHtml, priceIdr) {
+	var row = document.createElement('tr');
 	var cellLabel = document.createElement('td');
 	var cellTaxIdr = document.createElement('td');
 	var cellTaxUsd = document.createElement('td');
@@ -666,4 +803,12 @@ function reformatCurrCell (cellToFormat, curr) {
 
 function dismissAlert () {
 	$('#warning-alert').hide();
+}
+
+function addMoreTanki () {
+	$( "#tanki_dynamic" ).clone().appendTo( "#tanki_dynamic_list" );
+}
+
+function addMoreTrestle () {
+	$( "#trestle_dynamic" ).clone().appendTo( "#trestle_dynamic_list" );
 }

@@ -303,42 +303,56 @@
                 </div>
                 <div class="form-group" id="tangki_container" hidden>
                   <label class="col-sm-2 control-label">Kapasitas Total Tangki </label>
-                  <div class="col-sm-1">
-                    <!-- <input type="text" class="form-control"> -->
-                    <select id="tangkibbm_cap" class="form-control">
-                    	<option value="500">500</option>
-                    	<option value="1000">1000</option>
-                    	<option value="1500">1500</option>
-                    	<option value="2000">2000</option>
-                    	<option value="2500">2500</option>
-                    	<option value="5000">5000</option>
-                    	<option value="7500">7500</option>
-                    	<option value="10000">10000</option>
-                    	<option value="12500">12500</option>
-                    	<option value="15000">15000</option>
-                    	<option value="20000">20000</option>
-                    	<option value="25000">25000</option>
-                    	<option value="30000">30000</option>
-                    	<option value="40000">40000</option>
-                    	<option value="50000" selected>50000</option>
-	                </select>
-                  </div>
-                  <div class="col-sm-2 form-inline">
-                  	<input id="tankibbm_unit" class="form-control width-adjust-50" type='text'/>
-                  	<label>Unit</label>
+                  <div id="tanki_dynamic_list">
+	                  <div id="tanki_dynamic" class="col-sm-offset-2" style="margin-top: 10px;">
+		                  <div class="col-sm-2">
+		                    <!-- <input type="text" class="form-control"> -->
+		                    <select id="tangkibbm_cap" class="form-control">
+		                    	<option value="500">500</option>
+		                    	<option value="1000">1000</option>
+		                    	<option value="1500">1500</option>
+		                    	<option value="2000">2000</option>
+		                    	<option value="2500">2500</option>
+		                    	<option value="5000">5000</option>
+		                    	<option value="7500">7500</option>
+		                    	<option value="10000">10000</option>
+		                    	<option value="12500">12500</option>
+		                    	<option value="15000">15000</option>
+		                    	<option value="20000">20000</option>
+		                    	<option value="25000">25000</option>
+		                    	<option value="30000">30000</option>
+		                    	<option value="40000">40000</option>
+		                    	<option value="50000" selected>50000</option>
+			                </select>
+		                  </div>
+		                  <div class="col-sm-10 form-inline">
+		                  	<input id="tankibbm_unit" class="form-control width-adjust-50" type='text'/>
+		                  	<label>Unit</label>
+		                  	<button id="addmoretanki_btn" class="form-control width-adjust-50" onclick="addMoreTanki()" type='button'><i class="fa fa-plus"></i></button>
+		                  </div>
+	                  </div>
                   </div>
                 </div>
                 <div class="form-group" id="dermaga_container" hidden>
                   <label class="col-sm-2 control-label">Jenis Dermaga </label>
-                  <div class="col-sm-3">
-                    <!-- <input type="text" class="form-control"> -->
-                    <select id="dermaga_input" class="form-control">
-                    	<option value="Type LR & MR (50.000 DWT-100.000 DWT)" selected>Type LR & MR (50.000 DWT-100.000 DWT)</option>
-                    	<option value="Type MR & GP (17.500 DWT-50.000 DWT)">Type MR & GP (17.500 DWT-50.000 DWT)</option>
-                    	<option value="Type Small 2 (6.500 DWT)">Type Small 2 (6.500 DWT)</option>
-                    	<option value="Type Small 1 (3.500 DWT)">Type Small 1 (3.500 DWT)</option>
-                    	<option value="Type Lighter (1.500 DWT)">Type Lighter (1.500 DWT)</option>
-	                </select>
+                  <div id="trestle_dynamic_list">
+                  	<div id="trestle_dynamic" class="col-sm-offset-2">
+	                  	<div class="col-sm-3">
+	                    <!-- <input type="text" class="form-control"> -->
+	                    <select id="dermaga_input" class="form-control">
+	                    	<option value="Type LR & MR (50.000 DWT-100.000 DWT)" selected>Type LR & MR (50.000 DWT-100.000 DWT)</option>
+	                    	<option value="Type MR & GP (17.500 DWT-50.000 DWT)">Type MR & GP (17.500 DWT-50.000 DWT)</option>
+	                    	<option value="Type Small 2 (6.500 DWT)">Type Small 2 (6.500 DWT)</option>
+	                    	<option value="Type Small 1 (3.500 DWT)">Type Small 1 (3.500 DWT)</option>
+	                    	<option value="Type Lighter (1.500 DWT)">Type Lighter (1.500 DWT)</option>
+		                </select>
+	                  </div>
+	                  <div class="col-sm-9 form-inline">
+	                    <input type="number" id="trestle_input" class="form-control width-adjust-50">
+	                    <label>M</label>
+	                    <button id="addmoretanki_btn" class="form-control width-adjust-50" onclick="addMoreTrestle()" type='button'><i class="fa fa-plus"></i></button>
+	                  </div>
+                  	</div>
                   </div>
                 </div>
                 <div class="form-group" id="jetty_container" hidden>
@@ -354,10 +368,54 @@
 	                </select>
                   </div>
                 </div>
-                <div class="form-group form-inline" id="trestle_container" hidden>
+                <!-- <div class="form-group form-inline" id="trestle_container" hidden>
                   <label class="col-sm-2 col-sm-2 control-label">Penjang Trestle Dermaga </label>
+                  
+                </div> -->
+                <div class="form-group" id="jettyhead_container" hidden>
+                  <label class="col-sm-2 control-label">Jetty Head </label>
+                  <div class="col-sm-3">
+                    <!-- <input type="text" class="form-control"> -->
+                    <select id="jettyhead_input" class="form-control">
+                    	<option value="Capacity 25,000 ~ 65,000 DWT" selected>Capacity 25,000 ~ 65,000 DWT</option>
+                    	<option value="Capacity 3,500 ~ 25,000 DWT">Capacity 3,500 ~ 25,000 DWT</option>
+	                </select>
+                  </div>
+                </div>
+                <div class="form-group" id="mooringdolphin_container" hidden>
+                  <label class="col-sm-2 control-label">Mooring Dolphin </label>
+                  <div class="col-sm-3">
+                    <!-- <input type="text" class="form-control"> -->
+                    <select id="mooringdolphin_input" class="form-control">
+                    	<option value="Capacity 25,000 ~ 65,000 DWT" selected>Capacity 25,000 ~ 65,000 DWT</option>
+                    	<option value="Capacity 3,500 ~ 25,000 DWT">Capacity 3,500 ~ 25,000 DWT</option>
+	                </select>
+                  </div>
+                </div>
+                <div class="form-group" id="breastingdolphin_container" hidden>
+                  <label class="col-sm-2 control-label">Breasting Dolphin </label>
+                  <div class="col-sm-3">
+                    <!-- <input type="text" class="form-control"> -->
+                    <select id="breastingdolphin_input" class="form-control">
+                    	<option value="Capacity 25,000 ~ 65,000 DWT" selected>Capacity 25,000 ~ 65,000 DWT</option>
+                    	<option value="Capacity 3,500 ~ 25,000 DWT">Capacity 3,500 ~ 25,000 DWT</option>
+	                </select>
+                  </div>
+                </div>
+                <div class="form-group" id="trestletype_container" hidden>
+                  <label class="col-sm-2 control-label">Trestle Type </label>
+                  <div class="col-sm-3">
+                    <!-- <input type="text" class="form-control"> -->
+                    <select id="trestletype_input" class="form-control">
+                    	<option value="Trestle Type I (Lebar 14 M/ 3 Pile, Bentang 12 M)" selected>Trestle Type I (Lebar 14 M/ 3 Pile, Bentang 12 M)</option>
+                    	<option value="Trestle Type II (Bentang 6,5 M) ">Trestle Type II (Bentang 6,5 M) </option>
+	                </select>
+                  </div>
+                </div>
+                <div class="form-group form-inline" id="catwalk_container" hidden>
+                  <label class="col-sm-2 col-sm-2 control-label">Catwalk </label>
                   <div class="col-sm-2">
-                    <input type="number" id="trestle_input" class="form-control width-adjust-50">
+                    <input type="number" id="catwalk_input" class="form-control width-adjust-50">
                     <label>M</label>
                   </div>
                 </div>

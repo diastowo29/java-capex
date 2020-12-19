@@ -11,17 +11,16 @@ import javax.persistence.Table;
 @Table(name = "storage_tank")
 public class StorageTank {
 	private long id;
-	private long kapasitas;
-	private long diameter;
-	private long tinggi;
-	private long luas;
-	private long harga;
+	private Double kapasitas;
+	private Double diameter;
+	private Double tinggi;
+	private Double luas;
+	private Double harga;
 
 	public StorageTank() {
-
 	}
 
-	public StorageTank(long kapasitas, long diameter, long tinggi, long luas, long harga) {
+	public StorageTank(Double kapasitas, Double diameter, Double tinggi, Double luas, Double harga) {
 		this.kapasitas = kapasitas;
 		this.diameter = diameter;
 		this.tinggi = tinggi;
@@ -40,47 +39,47 @@ public class StorageTank {
     }
 	
 	@Column(name = "kapasitas", nullable = false)
-	public long getKapasitas() {
+	public Double getKapasitas() {
 		return kapasitas;
 	}
 	
-	public void setKapasitas(long kapasitas) {
+	public void setKapasitas(Double kapasitas) {
 		this.kapasitas = kapasitas;
 	}
 	
 	@Column(name="diameter", nullable = false)
-	public long getDiameter() {
+	public Double getDiameter() {
 		return diameter;
 	}
 	
-	public void setDiameter(long diameter) {
+	public void setDiameter(Double diameter) {
 		this.diameter = diameter;
 	}
 	
 	@Column(name="tinggi", nullable = false)
-	public long getTinggi() {
+	public Double getTinggi() {
 		return tinggi;
 	}
 	
-	public void setTinggi(long tinggi) {
+	public void setTinggi(Double tinggi) {
 		this.tinggi = tinggi;
 	}
 	
 	@Column(name="luas", nullable = false)
-	public long getLuas() {
+	public Double getLuas() {
 		return luas;
 	}
 	
-	public void setLuas(long luas) {
+	public void setLuas(Double luas) {
 		this.luas = luas;
 	}
 	
 	@Column(name="harga", nullable = false)
-	public long getHarga() {
+	public Double getHarga() {
 		return harga;
 	}
 	
-	public void setHarga(long harga) {
+	public void setHarga(Double harga) {
 		this.harga = harga;
 	}
 }

@@ -11,14 +11,14 @@ import javax.persistence.Table;
 @Table(name = "inflasi")
 public class Inflasi {
 	private long id;
-	private long inflasi;
+	private Double inflasi;
 	private int tahun;
 
 	public Inflasi() {
 
 	}
 
-	public Inflasi(long inflasi, int tahun) {
+	public Inflasi(Double inflasi, int tahun) {
 		this.inflasi = inflasi;
 		this.tahun = tahun;
 	}
@@ -34,11 +34,11 @@ public class Inflasi {
 	}
 
 	@Column(name = "inflasi", nullable = false)
-	public long getInflasi() {
+	public Double getInflasi() {
 		return inflasi;
 	}
 
-	public void setInflasi(long inflasi) {
+	public void setInflasi(Double inflasi) {
 		this.inflasi = inflasi;
 	}
 

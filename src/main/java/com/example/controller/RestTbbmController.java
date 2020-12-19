@@ -17,31 +17,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.model.DepotLPGFormula;
-import com.example.repository.DepotLPGFormulaRepository;
+import com.example.model.Inflasi;
+import com.example.model.TBBMFormula;
+import com.example.repository.InflasiRepository;
+import com.example.repository.TBBMFormulaRepository;
 
 @RestController
-@RequestMapping("/api/v2")
-public class DepotRestController {
+@RequestMapping("/api/v1")
+public class RestTbbmController {
+	@Autowired
+	TBBMFormulaRepository tbbmFormulaRepo;
 
 	@Autowired
-	DepotLPGFormulaRepository depotFormulaRepo;
+	InflasiRepository inflasiRepo;
 
-	@PostMapping("/depot/add")
-	public DepotLPGFormula createDepot(@Validated @RequestBody DepotLPGFormula depot) {
-		return depotFormulaRepo.save(depot);
+	@PostMapping("/tbbm/add")
+	public TBBMFormula createTbbm(@Validated @RequestBody TBBMFormula tbbm) {
+		return tbbmFormulaRepo.save(tbbm);
 	}
 
-	@GetMapping("/depot/{cap}/{kurs}")
-	public List<DepotLPGFormula> findDepotbyCap(@PathVariable(value = "cap") Long depotCap,
+	@GetMapping("/tbbm")
+	public List<TBBMFormula> getAllTbbm() {
+		return tbbmFormulaRepo.findAll();
+	}
+
+	@GetMapping("/tbbm/{cap}/{kurs}")
+	public List<TBBMFormula> findDepotbyCap(@PathVariable(value = "cap") Long tbbmCap,
 			@PathVariable(value = "kurs") Long kurs) {
-		List<DepotLPGFormula> depots = depotFormulaRepo.findByCapOrderByPositionAsc(depotCap);
-		for (DepotLPGFormula depotLPGFormula : depots) {
-			if (depotLPGFormula.getPrice_idr() == null) {
-				depotLPGFormula.setPrice_idr(doCalculation(depotLPGFormula.getPrice_formula(), kurs));
+		List<TBBMFormula> tbbms = tbbmFormulaRepo.findByCapOrderByPositionAsc(tbbmCap);
+		List<Inflasi> inflasis = inflasiRepo.findAll();
+		for (TBBMFormula tbbmFormula : tbbms) {
+			if (tbbmFormula.getPrice_idr() == null) {
+				for (Inflasi inflasi : inflasis) {
+					if (tbbmFormula.getPrice_formula().contains("INFLASI_" + inflasi.getTahun())) {
+						tbbmFormula.setPrice_formula(tbbmFormula.getPrice_formula()
+								.replace("INFLASI_" + inflasi.getTahun(), String.valueOf(inflasi.getInflasi() / 100)));
+					}
+				}
+				tbbmFormula.setPrice_idr(doCalculation(tbbmFormula.getPrice_formula(), kurs));
 			}
 		}
-		return depots;
+		return tbbms;
 	}
 
 	public double doCalculation(String mathString, long kurs) {
@@ -68,5 +84,4 @@ public class DepotRestController {
 		}
 		return newLong;
 	}
-
 }
