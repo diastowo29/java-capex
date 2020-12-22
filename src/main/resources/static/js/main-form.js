@@ -390,16 +390,18 @@ function formValidate () {
 								var cellPriceIdrTotal = document.createElement('td');
 								var cellPriceUsdTotal = document.createElement('td');
 
-								totalPriceIdr = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) * parseInt(itemCalc.qty) + totalPriceIdr;
+								var floatPrice = parseFloat(itemCalc.price_idr).toFixed(0)
+
+								totalPriceIdr = parseInt(floatPrice) * parseInt(itemCalc.qty) + totalPriceIdr;
 
 								cellId.innerHTML = itemCalc.position;
 								cellItem.innerHTML = itemCalc.name;
 								cellRemarks.innerHTML = itemCalc.remarks;
 								cellQty.innerHTML = itemCalc.qty;
 								cellSatuan.innerHTML = itemCalc.satuan;
-								cellPriceIdr.innerHTML = parseFloat(itemCalc.price_idr).toFixed(0);
-								cellPriceIdrTotal.innerHTML = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) * parseInt(itemCalc.qty);
-								cellPriceUsdTotal.innerHTML = parseInt(parseFloat(itemCalc.price_idr).toFixed(0)) / parseInt($('#kurs_input').val());
+								cellPriceIdr.innerHTML = floatPrice;
+								cellPriceIdrTotal.innerHTML = parseInt(floatPrice) * parseInt(itemCalc.qty);
+								cellPriceUsdTotal.innerHTML = parseInt(floatPrice) * parseInt(itemCalc.qty) / parseInt($('#kurs_input').val());
 
 								row.appendChild(cellId)
 								row.appendChild(cellItem)
@@ -435,7 +437,102 @@ function formValidate () {
 				if ($('#tangkidppu_input').val()) {
 					if ($('#kurs_input').val()) {
 						isItValid = true;
-						tableTitleh4 = facilityInput + ' - ' + $('#kelas_dppu').val() + ' - ' + $('#tangkidppu_input').val() + ' KL'
+						tableTitleh4 = facilityInput + ' - Kelas ' + $('#kelas_dppu').val() + ' - ' + $('#tangkidppu_input').val() + ' KL'
+
+						var tangkiDppuInputArr = $('input[id=tangkidppu_input]').map(function() {
+							var thisValue = '';
+							thisValue = this.value;
+							if (this.value == '') {
+								thisValue = '0'
+							}
+							return thisValue;
+						}).get();
+
+						var tangkiDppuCountInputArr = $('input[id=tangkidppu_count_input]').map(function() {
+							var thisValue = '';
+							thisValue = this.value;
+							if (this.value == '') {
+								thisValue = '0'
+							}
+							return thisValue;
+						}).get();
+
+						var volumeParameter = '';
+						tangkiDppuInputArr.forEach((tangkiDppuInput, index) => {
+							volumeParameter+='vol=' + tangkiDppuInput + 'x' + tangkiDppuCountInputArr[index]
+							if (index < tangkiDppuInputArr.length-1) {
+								volumeParameter+='&'
+							}
+						});
+
+						$.ajax({
+							url: '/api/v1/dppu/' + $('#kelas_dppu').val() + '/' + $('#kurs_input').val() + '?' + volumeParameter,
+							contentType: "application/json",
+							dataType: 'json',
+							success: function(result){
+								console.log(result);
+								var calculationTbody = document.getElementById('calculation_tbody');
+	
+								var totalPriceIdr = 0;
+								var totalPriceUsd = 0
+								result.forEach(itemCalc => {
+									var row = document.createElement('tr');
+									var cellId = document.createElement('td');
+									var cellItem = document.createElement('td');
+									var cellRemarks = document.createElement('td');
+									var cellQty = document.createElement('td');
+									var cellSatuan = document.createElement('td');
+									var cellPriceIdr = document.createElement('td');
+									var cellPriceIdrTotal = document.createElement('td');
+									var cellPriceUsdTotal = document.createElement('td');
+
+									var usdPerItem = itemCalc.price_idr;
+									var usdTotalItem = itemCalc.price_idr * itemCalc.qty;
+									var usdTotalItemFixed = parseFloat(usdTotalItem).toFixed(2);
+
+									totalPriceIdr = usdTotalItemFixed * parseInt($('#kurs_input').val()) + totalPriceIdr;
+									totalPriceUsd = parseFloat(usdTotalItemFixed) + parseFloat(totalPriceUsd)
+	
+									cellId.innerHTML = itemCalc.position;
+									cellItem.innerHTML = itemCalc.name;
+									cellRemarks.innerHTML = itemCalc.remarks;
+									cellQty.innerHTML = itemCalc.qty;
+									cellSatuan.innerHTML = itemCalc.satuan;
+									cellPriceIdr.innerHTML = usdPerItem * parseInt($('#kurs_input').val());
+									cellPriceIdrTotal.innerHTML = usdTotalItem * parseInt($('#kurs_input').val());
+									cellPriceUsdTotal.innerHTML = usdTotalItemFixed;
+	
+									row.appendChild(cellId)
+									row.appendChild(cellItem)
+									row.appendChild(cellRemarks)
+									row.appendChild(cellQty)
+									row.appendChild(cellSatuan)
+									row.appendChild(cellPriceIdr)
+									row.appendChild(cellPriceIdrTotal)
+									row.appendChild(cellPriceUsdTotal)
+	
+									
+									reformatCurrCell(cellPriceIdr, "IDR");
+									reformatCurrCell(cellPriceIdrTotal, "IDR");
+									reformatCurrCell(cellPriceUsdTotal, "USD");
+	
+									calculationTbody.appendChild(row);
+								});
+
+								console.log('total usd')
+								console.log(totalPriceUsd)
+								console.log(parseFloat(totalPriceUsd) * parseInt($('#kurs_input').val()))
+								totalPriceUsd = totalPriceUsd*1.05
+								
+								taxTotal(calculationTbody, 'Total', totalPriceUsd * parseInt($('#kurs_input').val()));
+								taxTotal(calculationTbody, 'K&R (8%)', totalPriceUsd * parseInt($('#kurs_input').val()));
+								taxTotal(calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + totalPriceUsd * parseInt($('#kurs_input').val()) + ')") /> %', totalPriceUsd * parseInt($('#kurs_input').val()));
+								taxTotal(calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + totalPriceUsd * parseInt($('#kurs_input').val()) + ')") /> %', totalPriceUsd * parseInt($('#kurs_input').val()));
+								taxTotal(calculationTbody, 'Grand Total (IDR)', totalPriceUsd * parseInt($('#kurs_input').val()));
+								taxTotal(calculationTbody, 'Grand Total (USD)', totalPriceUsd * parseInt($('#kurs_input').val()));
+					
+							}
+						})
 					} else {
 						isItValid = false;
 					}
@@ -811,4 +908,8 @@ function addMoreTanki () {
 
 function addMoreTrestle () {
 	$( "#trestle_dynamic" ).clone().appendTo( "#trestle_dynamic_list" );
+}
+
+function addMoreTankiDppu () {
+	$( "#tankidppu_dynamic" ).clone().appendTo( "#tankidppu_dynamic_list" );
 }

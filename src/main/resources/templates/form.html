@@ -233,9 +233,9 @@
                   <div class="col-sm-1">
                     <!-- <input type="text" class="form-control"> -->
                     <select id="kelas_dppu" class="form-control">
-                    	<option value="Kelas V">Kelas V</option>
-                    	<option value="Kelas IV">Kelas IV</option>
-                    	<option value="Kelas III">Kelas III</option>
+                    	<option value="5">Kelas V</option>
+                    	<option value="4">Kelas IV</option>
+                    	<option value="3">Kelas III</option>
 	                </select>
                   </div>
                 </div>
@@ -255,9 +255,16 @@
                 </div>
                 <div class="form-group" id="tangkidppu_container" hidden>
                   <label class="col-sm-2 control-label">Kapasitas Total Tangki (KL) </label>
-                  <div class="col-sm-2 form-inline">
-                  	<input id="tangkidppu_input" class="form-control width-adjust-50" type='number'/>
-                  	<label>KL</label>
+                  <div id="tankidppu_dynamic_list">
+	                  <div id="tankidppu_dynamic" class="col-sm-offset-2" style="margin-top: 10px;">
+		                  <div class="col-sm-12 form-inline">
+		                  	<input id="tangkidppu_input" class="form-control width-adjust-50" type='number'/>
+		                  	<label>KL</label>
+		                  	<input id="tangkidppu_count_input" class="form-control width-adjust-50" type='number'/>
+		                  	<label>Unit</label>
+		                  	<button id="addmoretankidppu_btn" class="form-control width-adjust-50" onclick="addMoreTankiDppu()" type='button'><i class="fa fa-plus"></i></button>
+		                  </div>
+	                  </div>
                   </div>
                 </div>
                 <div class="form-group" id="jenisstoragetank_container" hidden>
