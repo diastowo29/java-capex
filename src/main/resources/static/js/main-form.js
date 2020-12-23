@@ -749,6 +749,37 @@ function formValidate () {
 					isItValid = false;
 				}
 				break;
+			case 'Jetty4':
+				if ($('#kurs_input').val()) {
+					if ($('#catwalk_input').val()) {
+						var jettyHeadInput = $('#jettyhead_input').val()
+						var jettyMooringInput = $('#mooringdolphin_input').val()
+						var jettyBreastingInput = $('#breastingdolphin_input').val()
+						var jettyTrestleInput = $('#trestletype_input').val()
+						var jettyCatwalkInput = $('#catwalk_input').val()
+
+						var jettyParam = {
+							'head': jettyHeadInput,
+							'mooring': jettyMooringInput,
+							'breasting': jettyBreastingInput,
+							'trestle': jettyTrestleInput,
+							'catwalk': jettyCatwalkInput,
+							'kurs': $('#kurs_input').val()
+						}
+
+						$.ajax({
+							url: '/api/v1/jetty_4/calculate',
+							contentType: "application/json",
+							dataType: 'json',
+							data: JSON.stringify(jettyParam),
+							success: function(jetty4Result) {
+								generateCalculationTable(jetty4Result)
+							}
+
+						})
+					}
+				}
+				break;
 		}
 	}
 
