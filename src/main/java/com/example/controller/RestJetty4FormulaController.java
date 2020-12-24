@@ -55,24 +55,26 @@ public class RestJetty4FormulaController {
 			if (jetty4.getName().contains("HEAD")) {
 				String[] nameSplit = jetty4.getName().split("_");
 				if (nameSplit[1].equals(headName)) {
+					jetty4.setName("Jetty Head - " + nameSplit[1]);
 					newJetty4s.add(jetty4);
 				}
 			} else if (jetty4.getName().contains("MOORING")) {
 				String[] nameSplit = jetty4.getName().split("_");
 				if (nameSplit[1].equals(mooringName)) {
+					jetty4.setName("Mooring Dolphin - " + nameSplit[1]);
 					newJetty4s.add(jetty4);
 				}
 			} else if (jetty4.getName().contains("BREASTING")) {
 				String[] nameSplit = jetty4.getName().split("_");
 				if (nameSplit[1].equals(breastingName)) {
+					jetty4.setName("Breasting Dolphin - " + nameSplit[1]);
 					newJetty4s.add(jetty4);
 				}
 			} else if (jetty4.getName().contains("TRESTLE")) {
 				System.out.println(jetty4.getName());
 				String[] nameSplit = jetty4.getName().split("_");
 				if (nameSplit[1].equals(trestleName)) {
-
-					System.out.println(jetty4.getName());
+					jetty4.setName(nameSplit[1]);
 					newJetty4s.add(jetty4);
 				}
 			} else {

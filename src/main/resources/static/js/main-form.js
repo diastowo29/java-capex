@@ -752,6 +752,8 @@ function formValidate () {
 			case 'Jetty4':
 				if ($('#kurs_input').val()) {
 					if ($('#catwalk_input').val()) {
+						tableTitleh4 = facilityInput + ' - ' + jenisPipeline + ' - ' + $('#jettyhead_input').val() + ' - ' + $('#mooringdolphin_input').val() + ' - ' + $('#breastingdolphin_input').val() + ' - ' + $('#trestletype_input').val();
+						isItValid = true;
 						var jettyHeadInput = $('#jettyhead_input').val()
 						var jettyMooringInput = $('#mooringdolphin_input').val()
 						var jettyBreastingInput = $('#breastingdolphin_input').val()
@@ -771,6 +773,7 @@ function formValidate () {
 							url: '/api/v1/jetty_4/calculate',
 							contentType: "application/json",
 							dataType: 'json',
+							type: 'POST',
 							data: JSON.stringify(jettyParam),
 							success: function(jetty4Result) {
 								generateCalculationTable(jetty4Result)
