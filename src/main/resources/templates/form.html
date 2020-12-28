@@ -172,7 +172,7 @@
            	</a>
           </li>
           <li class="sub-menu">
-            <a href="/login" style="color: red !important;">
+            <a href="/logout" style="color: red !important;">
             	<i class="fa fa-power-off"></i>
             	<span>Logout </span>
            	</a>
@@ -218,6 +218,12 @@
                 <div class="form-group" id="accuracy_label">
                 	<label class="col-sm-2">Expected Accuracy</label>
                 	<label id="class_acc_label" class="col-sm-3">: -30% to +50%</label>
+                </div>
+                <div class="form-group" id="project_name">
+                  <label class="col-sm-2 control-label">Project Name </label>
+                  <div class="col-sm-8 form-inline">
+                  	<input id="project_name_input" class="form-control" type='text' placeholder="Project ABC"/>
+                  </div>
                 </div>
                 <div class="form-group" id="facility_container">
                   <label class="col-sm-2 control-label">Sarana dan Fasilitas </label>
@@ -500,6 +506,10 @@
 	            <div class="content-panel" style="padding-left:10px; padding-right: 10px;">
 	              <!-- <h4><i class="fa fa-angle-right"></i> DPPU Class V (3 x 300 KL)</h4> -->
 	              <section class="calculation-section" id="unseen">
+	              	<div class="form-group col-sm-12">
+	                	<label class="col-sm-2">Project Name</label>
+	                	<label id="project_name_label" class="col-sm-3">Project ABCD</label>
+	                </div>
 	                <div class="form-group col-sm-12" id="accuracy_label">
 	                	<label class="col-sm-2">Class Estimate</label>
 	                	<label id="class_est_table" class="col-sm-3">: Class 5 Estimate</label>
@@ -511,6 +521,10 @@
 	                <div class="form-group col-sm-12" id="accuracy_label">
 	                	<label class="col-sm-2">Expected Accuracy</label>
 	                	<label id="class_acc_table" class="col-sm-3">: -30% to +50%</label>
+	                </div>
+	              	<div class="form-group col-sm-12">
+	                	<label class="col-sm-2">Author</label>
+	                	<label id="author_name_label" class="col-sm-3" th:text="${username}"></label>
 	                </div>
 	                <table id="calc-table" class="table table-bordered table-striped table-condensed">
 	                  <thead>

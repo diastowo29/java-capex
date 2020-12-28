@@ -16,64 +16,35 @@
 
 package com.example;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.model.User;
+import com.example.repository.UserRepository;
 
 @Controller
 @SpringBootApplication
 public class Main {
-
-	@Value("${spring.datasource.url}")
-	private String dbUrl;
-
 	@Autowired
-	private DataSource dataSource;
+	UserRepository userRepo;
 
 	public static void main(String[] args) throws Exception {
+//		Main main = new Main();
+//		main.generateAdmin();
 		SpringApplication.run(Main.class, args);
 	}
+	
+	public void generateAdmin () {
+		User admin = userRepo.findByUsername("admin");
+		System.out.println(admin);
+		if (admin == null) {
+			System.out.println("null");
+		} else {
+			System.out.println("not null");
+		}
 
-	@RequestMapping("/")
-	String index() {
-		return "redirect:/login";
 	}
-
-//  @RequestMapping("/db")
-//  String db(Map<String, Object> model) {
-//    try (Connection connection = dataSource.getConnection()) {
-//      Statement stmt = connection.createStatement();
-//      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-//      stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-//      ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
-//
-//      ArrayList<String> output = new ArrayList<String>();
-//      while (rs.next()) {
-//        output.add("Read from DB: " + rs.getTimestamp("tick"));
-//      }
-//
-//      model.put("records", output);
-//      return "db";
-//    } catch (Exception e) {
-//      model.put("message", e.getMessage());
-//      return "error";
-//    }
-//  }
-
-//  @Bean
-//  public DataSource dataSource() throws SQLException {
-//    if (dbUrl == null || dbUrl.isEmpty()) {
-//      return new HikariDataSource();
-//    } else {
-//      HikariConfig config = new HikariConfig();
-//      config.setJdbcUrl(dbUrl);
-//      return new HikariDataSource(config);
-//    }
-//  }
 
 }

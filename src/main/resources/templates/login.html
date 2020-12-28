@@ -50,7 +50,7 @@
       *********************************************************************************************************************************************************** -->
   <div id="login-page">
     <div class="container">
-      <form class="form-login new_form_login" action="/form">
+      <form class="form-login new_form_login" th:action="@{/login}" method="post">
         <h2 class="form-login-heading">sign in now</h2>
         <div class="new_login_wrap col-md-6">
         	<img alt="pertamina" class="logo-pertamina" src="img/pertamina.png">
@@ -59,11 +59,11 @@
         	<h4>Capex Estimator</h4>
         </div>
         <div class="new_login_wrap login-wrap col-md-6">
-          <input type="text" class="form-control" placeholder="User ID" autofocus>
+          <input type="text" id="username" name="username" class="form-control" placeholder="User ID" autofocus>
           <br>
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" id="password" name="password" class="form-control" placeholder="Password">
           <br>
-          <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
+          <input class="btn btn-theme btn-block" type="submit" value="Login"/>
           <hr>
         </div>
       </form>

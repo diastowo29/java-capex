@@ -1,13 +1,6 @@
 package com.example.controller;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -38,26 +31,26 @@ public class MyRestController {
 		return depotRepository.findByCapOrderByPositionAsc(depotCap);
 	}
 
-	@GetMapping("/testing")
-	public Map<String, String> testing() {
-		String test = "";
-		ScriptEngineManager mgr = new ScriptEngineManager();
-		ScriptEngine engine = mgr.getEngineByName("JavaScript");
-
-		String foo = "(300/500)";
-		if (foo.contains("^")) {
-			String[] squared = foo.split("^");
-		}
-		try {
-			System.out.println(engine.eval(foo));
-			System.out.println(Math.pow(Double.valueOf(engine.eval(foo).toString()), 0.36));
-			test = String.valueOf(BigDecimal.valueOf(Double.valueOf(engine.eval(foo).toString())));
-		} catch (ScriptException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		HashMap<String, String> map = new HashMap<>();
-		map.put("key", test);
-		return map;
-	}
+//	@GetMapping("/testing")
+//	public Map<String, String> testing() {
+//		String test = "";
+//		ScriptEngineManager mgr = new ScriptEngineManager();
+//		ScriptEngine engine = mgr.getEngineByName("JavaScript");
+//
+//		String foo = "(300/500)";
+//		if (foo.contains("^")) {
+//			String[] squared = foo.split("^");
+//		}
+//		try {
+//			System.out.println(engine.eval(foo));
+//			System.out.println(Math.pow(Double.valueOf(engine.eval(foo).toString()), 0.36));
+//			test = String.valueOf(BigDecimal.valueOf(Double.valueOf(engine.eval(foo).toString())));
+//		} catch (ScriptException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		HashMap<String, String> map = new HashMap<>();
+//		map.put("key", test);
+//		return map;
+//	}
 }

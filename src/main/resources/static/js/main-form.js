@@ -231,6 +231,7 @@ function formValidate () {
 	var tableTitle  = '';
 	var tableTitleh4 = '';
 	var isItValid = false;
+	$('#project_name_label').text($('#project_name_input').val())
 
 	$('#calc-table > tbody').empty();
 	kursFinal = parseInt($('#kurs_input').val())
