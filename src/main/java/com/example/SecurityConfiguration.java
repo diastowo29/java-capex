@@ -40,15 +40,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/public/**", "/css/**", "/js/**", "/img/**", "/lib/**").permitAll()
-				.anyRequest().authenticated().and().formLogin().loginPage("/login").failureUrl("/login-error")
-				.permitAll().and()
-				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");;
+		http.authorizeRequests()
+		.antMatchers("/public/**", "/css/**", "/js/**", "/img/**", "/lib/**").permitAll()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+			.loginPage("/login")
+			.failureUrl("/login-error")
+			.permitAll().and()
+		.logout()
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/login");
 	}
-
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.inMemoryAuthentication().withUser("user").password("{noop}pass").roles("USER");
-//	}
-
+	
 }
