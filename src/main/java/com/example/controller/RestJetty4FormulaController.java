@@ -46,7 +46,7 @@ public class RestJetty4FormulaController {
 		String catwalkLength = param.get("catwalk");
 		String headName = param.get("head");
 		long kurs = Long.valueOf(param.get("kurs"));
-		
+				
 		List<Jetty4Formula> jetty4s = jetty4FormulaRepo.findAll();
 		
 		List<Jetty4Formula> newJetty4s = new ArrayList<Jetty4Formula>();

@@ -1,3 +1,6 @@
+// import { jsPDF } from "jspdf";
+// const { jsPDF } = window.jspdf;
+
 resetForm();
 
 var classEstimate = '';
@@ -23,18 +26,50 @@ function resetForm () {
 }
 
 function convertPdf () {
-	html2canvas(document.getElementById('unseen'), {
-        onrendered: function (canvas) {
-            var data = canvas.toDataURL();
-            var docDefinition = {
-                content: [{
-                    image: data,
-                    width: 500
-                }]
-            };
-            pdfMake.createPdf(docDefinition).download(classEstimate + ' - ' + facilityInput + ".pdf");
-        }
+	// console.log($('#contingencyInput').val())
+	// $('#contingencyInput').val($('#contingencyInput').val());
+	// html2canvas(document.getElementById("unseen")).then(canvas => {
+	// 	var data = canvas.toDataURL();
+	// 	var docDefinition = {
+	// 		content: [{
+	// 			image: data,
+	// 			width: 500
+	// 		}]
+	// 	};
+	// 	pdfMake.createPdf(docDefinition).download(classEstimate + ' - ' + facilityInput + ".pdf");
+	// });
+
+	html2canvas(document.getElementById('unseen'), {height: 3000, width: 3000}).then((canvas) => {
+		console.log(canvas)
+		var data = canvas.toDataURL();
+		var docDefinition = {
+			content: [{
+				image: data,
+				width: 500
+			}]
+		};
+		pdfMake.createPdf(docDefinition).download(classEstimate + ' - ' + facilityInput + ".pdf");
     });
+
+	// html2canvas(document.getElementById('unseen'), {
+    //     onrendered: function (canvas) {
+	// 		console.log(canvas)
+    //         var data = canvas.toDataURL();
+    //         var docDefinition = {
+    //             content: [{
+    //                 image: data,
+    //                 width: 500
+    //             }]
+    //         };
+    //         pdfMake.createPdf(docDefinition).download(classEstimate + ' - ' + facilityInput + ".pdf");
+    //     }
+	// });
+
+	// html2canvas(document.querySelector('#unseen')).then(canvas => {
+	// 	let pdf = new jsPDF('p', 'mm', 'a4');
+	// 	pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298);
+	// 	pdf.save(filename);
+	// });
 }
 
 function changeEstimate (select) {
@@ -309,7 +344,7 @@ function formValidate () {
 										dataType: 'json',
 										success: function (jettyResult) {
 											$.ajax({
-												url: '/api/v1//tbbm/' + tangkiParameter + '/' + $('#kurs_input').val(),
+												url: '/api/v1/tbbm/' + tangkiParameter + '/' + $('#kurs_input').val(),
 												contentType: 'application/json',
 												dataType: 'json',
 												success: function (tbbmResult) {
@@ -475,7 +510,7 @@ function formValidate () {
 								var calculationTbody = document.getElementById('calculation_tbody');
 	
 								var totalPriceIdr = 0;
-								var totalPriceUsd = 0
+								var totalPriceUsd = 0;
 								result.forEach(itemCalc => {
 									var row = document.createElement('tr');
 									var cellId = document.createElement('td');
@@ -499,9 +534,15 @@ function formValidate () {
 									cellRemarks.innerHTML = itemCalc.remarks;
 									cellQty.innerHTML = itemCalc.qty;
 									cellSatuan.innerHTML = itemCalc.satuan;
-									cellPriceIdr.innerHTML = usdPerItem * parseInt($('#kurs_input').val());
-									cellPriceIdrTotal.innerHTML = usdTotalItem * parseInt($('#kurs_input').val());
+									cellPriceIdr.innerHTML = parseFloat(usdPerItem) * parseInt($('#kurs_input').val());
+									cellPriceIdrTotal.innerHTML = usdTotalItemFixed * parseInt($('#kurs_input').val());
 									cellPriceUsdTotal.innerHTML = usdTotalItemFixed;
+
+									if (itemCalc.name.includes('Storage Tanks')) {
+										// console.log(parseFloat(usdPerItem))
+										// console.log(parseInt($('#kurs_input').val()))
+										// console.log(usdTotalItem)
+									}
 	
 									row.appendChild(cellId)
 									row.appendChild(cellItem)
@@ -520,9 +561,9 @@ function formValidate () {
 									calculationTbody.appendChild(row);
 								});
 
-								console.log('total usd')
-								console.log(totalPriceUsd)
-								console.log(parseFloat(totalPriceUsd) * parseInt($('#kurs_input').val()))
+								// console.log('total usd')
+								// console.log(totalPriceUsd)
+								// console.log(parseFloat(totalPriceUsd) * parseInt($('#kurs_input').val()))
 								totalPriceUsd = totalPriceUsd*1.05
 								
 								taxTotal(calculationTbody, 'Total', totalPriceUsd * parseInt($('#kurs_input').val()));
@@ -753,7 +794,7 @@ function formValidate () {
 			case 'Jetty4':
 				if ($('#kurs_input').val()) {
 					if ($('#catwalk_input').val()) {
-						tableTitleh4 = facilityInput + ' - ' + jenisPipeline + ' - ' + $('#jettyhead_input').val() + ' - ' + $('#mooringdolphin_input').val() + ' - ' + $('#breastingdolphin_input').val() + ' - ' + $('#trestletype_input').val();
+						tableTitleh4 = facilityInput + ' - ' + $('#jettyhead_input').val() + ' - ' + $('#mooringdolphin_input').val() + ' - ' + $('#breastingdolphin_input').val() + ' - ' + $('#trestletype_input').val();
 						isItValid = true;
 						var jettyHeadInput = $('#jettyhead_input').val()
 						var jettyMooringInput = $('#mooringdolphin_input').val()
@@ -770,11 +811,13 @@ function formValidate () {
 							'kurs': $('#kurs_input').val()
 						}
 
+						console.log(jettyParam)
+
 						$.ajax({
 							url: '/api/v1/jetty_4/calculate',
 							contentType: "application/json",
 							dataType: 'json',
-							type: 'POST',
+							method: 'post',
 							data: JSON.stringify(jettyParam),
 							success: function(jetty4Result) {
 								generateCalculationTable(jetty4Result)
@@ -842,8 +885,8 @@ function generateCalculationTable (itemResult) {
 	
 	taxTotal(calculationTbody, 'Total', parseFloat(totalPriceIdr).toFixed(0));
 	taxTotal(calculationTbody, 'K&R (8%)', parseFloat(totalPriceIdr).toFixed(0));
-	taxTotal(calculationTbody, 'Contingency <input type="number" onchange="contingencyChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
-	taxTotal(calculationTbody, 'Management Reserve <input type="number" onchange="mgmChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
+	taxTotal(calculationTbody, 'Contingency <input type="number" id="contingencyInput" onchange="contingencyChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
+	taxTotal(calculationTbody, 'Management Reserve <input type="number" id="mgmInput" onchange="mgmChange(this, ' + parseFloat(totalPriceIdr).toFixed(0) + ')") /> %', parseFloat(totalPriceIdr).toFixed(0));
 	taxTotal(calculationTbody, 'Grand Total (IDR)', parseFloat(totalPriceIdr).toFixed(0));
 	taxTotal(calculationTbody, 'Grand Total (USD)', parseFloat(totalPriceIdr).toFixed(0));
 }
@@ -874,10 +917,6 @@ function taxTotal (calculationTbody, labelHtml, priceIdr) {
 		cellTaxUsd.innerHTML = 'Mengakomodasi variasi harga';
 		reformatCurrCell(cellTaxIdr, 'IDR');
 	} else if (labelHtml == 'Grand Total (IDR)'){
-		console.log(priceIdr)
-		console.log(contingencyFinal)
-		console.log(mgmRsvFinal)
-		console.log(krFinal)
 		cellTaxIdr.innerHTML = parseFloat(priceIdr) + parseFloat(contingencyFinal) + parseFloat(mgmRsvFinal) + krFinal;
 		cellTaxUsd.innerHTML = '';
 		cellTaxIdr.id = 'grandTotalIdr';

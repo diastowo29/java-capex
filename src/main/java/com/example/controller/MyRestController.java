@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,9 @@ import com.example.repository.DepotLpgRepository;
 @RestController
 @RequestMapping("/api/v1")
 public class MyRestController {
-
+	public static final String HTML = "<h1>Hello</h1>"
+			+ "<p>This was created using iText</p>"
+			+ "<a href='hmkcode.com'>hmkcode.com</a>";
 	@Autowired
 	private DepotLpgRepository depotRepository;
 
@@ -30,6 +34,14 @@ public class MyRestController {
 	public List<DepotLpg> findDepotbyCap(@PathVariable(value = "cap") Long depotCap) {
 		return depotRepository.findByCapOrderByPositionAsc(depotCap);
 	}
+	
+	@GetMapping("/pdf")
+	public byte[] serveFile() throws IOException {
+	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//	    HtmlConverter.convertToPdf(HTML, new FileOutputStream("string-to-pdf.pdf"));
+//	    DbxEntry.File downloadedFile = client.getFile("/" + filename, null, outputStream);
+	    return outputStream.toByteArray();
+	} 
 
 //	@GetMapping("/testing")
 //	public Map<String, String> testing() {
