@@ -361,6 +361,7 @@
 		                </select>
 	                  </div>
 	                  <div class="col-sm-9 form-inline">
+                  		<label class="col-sm-1 control-label">Panjang Trestle </label>
 	                    <input type="number" id="trestle_input" class="form-control width-adjust-50">
 	                    <label>M</label>
 	                    <button id="addmoretrestle_btn" class="form-control width-adjust-50" onclick="addMoreTrestle()" type='button'><i class="fa fa-plus"></i></button>
@@ -544,7 +545,7 @@
 	                </table>
 	              </section>
 	              <div>
-	              	<input type="button" class="form-control btn-theme" onclick="convertPdf()" value="Print">
+	              	<input type="button" id="btnConvert" class="form-control btn-theme" onclick="convertPdf()" value="Print">
               		</div>
 	            </div>
 	          </div>
@@ -599,11 +600,12 @@
   <script type="text/javascript" src="lib/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
   <script src="lib/form-component.js"></script>
   
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script> -->
   <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script> -->
-  <script type="text/javascript" src="js/html2canvas.min.js"></script>
-  <!-- <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.2.0/jspdf.umd.min.js"></script> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script> -->
+  <!-- <script type="text/javascript" src="js/html2canvas.min.js"></script> -->
+  
+	<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jspdf@1.5.3/dist/jspdf.min.js"></script>
   <script type="text/javascript" src="js/main-form.js"></script>
 
 </body>

@@ -1,6 +1,3 @@
-// import { jsPDF } from "jspdf";
-// const { jsPDF } = window.jspdf;
-
 resetForm();
 
 var classEstimate = '';
@@ -39,7 +36,7 @@ function convertPdf () {
 	// 	pdfMake.createPdf(docDefinition).download(classEstimate + ' - ' + facilityInput + ".pdf");
 	// });
 
-	html2canvas(document.getElementById('unseen'), {height: 3000, width: 3000}).then((canvas) => {
+	/* html2canvas(document.getElementById('unseen'), {height: 3000, width: 3000}).then((canvas) => {
 		console.log(canvas)
 		var data = canvas.toDataURL();
 		var docDefinition = {
@@ -49,27 +46,79 @@ function convertPdf () {
 			}]
 		};
 		pdfMake.createPdf(docDefinition).download(classEstimate + ' - ' + facilityInput + ".pdf");
-    });
+    }); */
 
-	// html2canvas(document.getElementById('unseen'), {
-    //     onrendered: function (canvas) {
-	// 		console.log(canvas)
-    //         var data = canvas.toDataURL();
-    //         var docDefinition = {
-    //             content: [{
-    //                 image: data,
-    //                 width: 500
-    //             }]
-    //         };
-    //         pdfMake.createPdf(docDefinition).download(classEstimate + ' - ' + facilityInput + ".pdf");
-    //     }
-	// });
+	/* html2canvas(document.getElementById('unseen'), {
+        onrendered: function (canvas) {
+			console.log(canvas)
+            var data = canvas.toDataURL();
+            var docDefinition = {
+                content: [{
+                    image: data,
+                    width: 500
+                },{
+                    image: data,
+                    width: 500
+                }]
+            };
+            pdfMake.createPdf(docDefinition).download(classEstimate + ' - ' + facilityInput + ".pdf");
+        }
+	}); */
 
-	// html2canvas(document.querySelector('#unseen')).then(canvas => {
-	// 	let pdf = new jsPDF('p', 'mm', 'a4');
-	// 	pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298);
-	// 	pdf.save(filename);
-	// });
+	// <script src="https://parall.ax/parallax/js/jspdf.js"></script>
+	// test (23)
+	/* var pdf = new jsPDF('p', 'pt', 'letter');
+	$("#unseen").css("background-color", "white");
+	pdf.addHTML($('#unseen'), function () {
+		pdf.save('Test.pdf');
+	}); */
+
+	// <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script>
+	// <script src="https://cdn.jsdelivr.net/npm/jspdf@1.5.3/dist/jspdf.min.js"></script>
+	// web (15).pdf
+	/* var pdf = new jsPDF('p', 'pt', 'legal');
+	pdf.internal.scaleFactor = 30;
+	pdf.html(document.getElementById('unseen'), {
+		callback: (pdf) => {
+			pdf.save('web.pdf');
+		},
+		background: '#000',
+		format: 'PNG',
+		pagesplit: true
+	}); */
+
+	// <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script>
+	// <script src="https://cdn.jsdelivr.net/npm/jspdf@1.5.3/dist/jspdf.min.js"></script>
+	// File(2).pdf
+	var pdf = new jsPDF('p', 'pt', 'a4');
+	html2canvas(document.getElementById('unseen')).then(canvas => {
+		imgData = canvas.toDataURL('image/jpeg', 1.0)
+		window.open(imgData)
+		pdf = new jsPDF("l", "pt", [canvas.height+20, canvas.width+500])
+		pdf.addImage(imgData, 'JPEG', 10, 10, canvas.width, canvas.height)
+		var img = new Image()
+		img.src = 'img/capex_matrix.png'
+		pdf.addPage('a2', 'p')
+		pdf.addImage(img, 'png', 10, 10)
+		pdf.save('file.pdf')
+	})
+
+	// <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script>
+	// <script src="https://cdn.jsdelivr.net/npm/jspdf@1.5.3/dist/jspdf.min.js"></script>
+	// download (9).pdf
+	/* html2canvas(document.getElementById('unseen'))
+      .then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({
+          orientation: 'portrait',
+        });
+        const imgProps= pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = ((imgProps.height * pdfWidth) / imgProps.width);
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('download.pdf');
+	  });
+	   */
 }
 
 function changeEstimate (select) {
