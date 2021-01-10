@@ -100,7 +100,7 @@ function convertPdf () {
 		img.src = 'img/capex_matrix.png'
 		pdf.addPage('a2', 'p')
 		pdf.addImage(img, 'png', 10, 10)
-		pdf.save('file.pdf')
+		pdf.save(classEstimate + ' - ' + facilityInput + ".pdf")
 	})
 
 	// <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script>
