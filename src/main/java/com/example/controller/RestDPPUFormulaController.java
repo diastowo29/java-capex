@@ -82,7 +82,7 @@ public class RestDPPUFormulaController {
 							dppu.setPrice_formula(dppu.getPrice_formula().replace("HARGA_AVTUR_FLOATING_VOL", "HARGA_AVTUR_FLOATING_" + volSplit[0]));
 						}
 						DPPUFormula calculatedDppu = formulaMapping(dppu, inflasis, storageTankAvturs, storageTanks, kurs, volSplit[0]);
-						calculatedDppu.setName("Storage Tanks " + vol + " KL");
+						calculatedDppu.setName("Storage Tanks " + volSplit[0] + " KL");
 						calculatedDppu.setQty(Long.valueOf(volSplit[1]));
 						newDppus.add(calculatedDppu);
 					}
@@ -90,7 +90,7 @@ public class RestDPPUFormulaController {
 					for (String vol : dppuVolume) {
 						String[] volSplit = vol.split("x");
 						DPPUFormula calculatedDppu = formulaMapping(dppu, inflasis, storageTankAvturs, storageTanks, kurs, volSplit[0]);
-						calculatedDppu.setName("Storage Tanks " + vol + " KL");
+						calculatedDppu.setName("Storage Tanks " + volSplit[0] + " KL");
 						calculatedDppu.setQty(Long.valueOf(volSplit[1]));
 						newDppus.add(calculatedDppu);
 					}
@@ -118,41 +118,37 @@ public class RestDPPUFormulaController {
 						String.valueOf(doPowCalculation(dppu.getPangkat_formula(), dppuVolume))));
 			}
 			
-			if (dppu.getPrice_formula().contains("HARGA_AVTUR")) {
-				System.out.println("get harga avtur");
-				for (StorageTankAvtur storageTankAvtur : storageTankAvturs) {
-					int avturTankKap = storageTankAvtur.getKapasitas().intValue();
-					if (dppu.getPrice_formula().contains("HARGA_AVTUR_" + avturTankKap)) {
+			if (dppu.getCap() == 5) {
+				if (dppu.getPrice_formula().contains("HARGA_AVTUR")) {
+					for (StorageTankAvtur storageTankAvtur : storageTankAvturs) {
+						int avturTankKap = storageTankAvtur.getKapasitas().intValue();
 						if (avturTankKap == 500) {
-							dppuVolume = String.valueOf(avturTankKap);
-						}
-						if (avturTankKap == Double.parseDouble(dppuVolume)) {
 							dppu.setPrice_formula(dppu.getPrice_formula().replace("HARGA_AVTUR_" + avturTankKap,
-									String.valueOf(storageTankAvtur.getHarga().doubleValue())));	
-						}
-					}
-
-					if (dppu.getPrice_formula().contains("HARGA_AVTUR_COATING_" + avturTankKap)) {
-						if (Double.parseDouble(dppuVolume) < avturTankKap) {
-							dppuVolume = String.valueOf(avturTankKap);
-						}
-						if (avturTankKap == Double.parseDouble(dppuVolume)) {
+									String.valueOf(storageTankAvtur.getHarga().doubleValue())));
 							dppu.setPrice_formula(dppu.getPrice_formula().replace("HARGA_AVTUR_COATING_" + avturTankKap,
 									String.valueOf(storageTankAvtur.getHargaInternalCoating().doubleValue())));	
+							dppu.setPrice_formula(dppu.getPrice_formula().replace("HARGA_AVTUR_FLOATING_" + avturTankKap,
+									String.valueOf(storageTankAvtur.getHargaFloatingSuction().doubleValue())));	
 						}
 					}
-
-					if (dppu.getPrice_formula().contains("HARGA_AVTUR_FLOATING_" + avturTankKap)) {
-						if (Double.parseDouble(dppuVolume) < avturTankKap) {
-							dppuVolume = String.valueOf(avturTankKap);
-						}
-						if (avturTankKap == Double.parseDouble(dppuVolume)) {
+				}
+			} else {
+				if (dppu.getPrice_formula().contains("HARGA_AVTUR")) {
+					for (StorageTankAvtur storageTankAvtur : storageTankAvturs) {
+						int avturTankKap = storageTankAvtur.getKapasitas().intValue();
+						
+						if (Double.parseDouble(dppuVolume) == avturTankKap) {
+							dppu.setPrice_formula(dppu.getPrice_formula().replace("HARGA_AVTUR_" + avturTankKap,
+									String.valueOf(storageTankAvtur.getHarga().doubleValue())));
+							dppu.setPrice_formula(dppu.getPrice_formula().replace("HARGA_AVTUR_COATING_" + avturTankKap,
+									String.valueOf(storageTankAvtur.getHargaInternalCoating().doubleValue())));	
 							dppu.setPrice_formula(dppu.getPrice_formula().replace("HARGA_AVTUR_FLOATING_" + avturTankKap,
 									String.valueOf(storageTankAvtur.getHargaFloatingSuction().doubleValue())));	
 						}
 					}
 				}
 			}
+			
 			if (dppu.getPrice_formula().contains("HARGA_NONAVTUR")) {
 				for (StorageTank storageTank : storageTanks) {
 					int tankKap = storageTank.getKapasitas().intValue();
@@ -162,10 +158,10 @@ public class RestDPPUFormulaController {
 					}
 				}
 			}
-//			if (dppu.getName().contains("Storage Tanks")) {
-//				System.out.println("before");
-//				System.out.println(dppu.getPrice_formula());
-//			}
+			if (dppu.getName().contains("Storage Tanks")) {
+				System.out.println("before");
+				System.out.println(dppu.getPrice_formula());
+			}
 			dppu.setPrice_idr(doCalculation(dppu.getPrice_formula(), kurs));
 //			if (dppu.getName().contains("Storage Tanks")) {
 //				System.out.println("after");
