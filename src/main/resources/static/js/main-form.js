@@ -571,8 +571,16 @@ function formValidate () {
 									var cellPriceIdrTotal = document.createElement('td');
 									var cellPriceUsdTotal = document.createElement('td');
 
+									var newQty = '';
+									if (itemCalc.name == 'Recovery Vessel Kap. 200 Liter') {
+										newQty = tangkiDppuCountInputArr[0]
+									} else {
+										newQty = itemCalc.qty;
+									}
+
+
 									var usdPerItem = itemCalc.price_idr;
-									var usdTotalItem = itemCalc.price_idr * itemCalc.qty;
+									var usdTotalItem = itemCalc.price_idr * newQty;
 									var usdTotalItemFixed = parseFloat(usdTotalItem).toFixed(2);
 
 									totalPriceIdr = usdTotalItemFixed * parseInt($('#kurs_input').val()) + totalPriceIdr;
@@ -581,7 +589,7 @@ function formValidate () {
 									cellId.innerHTML = itemCalc.position;
 									cellItem.innerHTML = itemCalc.name;
 									cellRemarks.innerHTML = itemCalc.remarks;
-									cellQty.innerHTML = itemCalc.qty;
+									cellQty.innerHTML = newQty;
 									cellSatuan.innerHTML = itemCalc.satuan;
 									cellPriceIdr.innerHTML = parseFloat(usdPerItem) * parseInt($('#kurs_input').val());
 									cellPriceIdrTotal.innerHTML = usdTotalItemFixed * parseInt($('#kurs_input').val());
