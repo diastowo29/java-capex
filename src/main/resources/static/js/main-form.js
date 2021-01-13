@@ -94,8 +94,8 @@ function convertPdf () {
 	html2canvas(document.getElementById('unseen')).then(canvas => {
 		imgData = canvas.toDataURL('image/jpeg', 1.0)
 		window.open(imgData)
-		pdf = new jsPDF("l", "pt", [canvas.height+20, canvas.width+500])
-		pdf.addImage(imgData, 'JPEG', 10, 10, canvas.width, canvas.height)
+		pdf = new jsPDF("l", "pt", [canvas.height+100, canvas.width+600])
+		pdf.addImage(imgData, 'JPEG', 300, 30, canvas.width, canvas.height)
 		var img = new Image()
 		img.src = 'img/capex_matrix.png'
 		pdf.addPage('a2', 'p')
