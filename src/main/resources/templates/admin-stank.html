@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <title>CAPEX DE 2.0</title>
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Bootstrap core CSS -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!--external css-->
+  <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="lib/bootstrap-datepicker/css/datepicker.css" />
+  <link rel="stylesheet" type="text/css" href="lib/bootstrap-daterangepicker/daterangepicker.css" />
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet">
+
+  <!-- =======================================================
+    Template Name: Dashio
+    Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+  <style type="text/css">
+  	.width-adjust-20 {
+  		max-width: 20%;
+  	}
+  	
+  	.width-adjust-50 {
+  		max-width: 50%;
+  	}
+  	
+  	#calc-table {
+  		font-weight: 900;
+  	}
+  </style>
+</head>
+
+<body>
+  <section id="container">
+    <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a href="/form" class="logo"><b>CAPEX<span> DE</span> 2.0</b></a>
+      <!--logo end-->
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+        	<li><img alt="pertamina" src="img/pertamina-wh.png" style="max-height: 50px; margin-top: 5px;"></li>
+        </ul>
+      </div>
+    </header>
+    <!--header end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <li class="sub-menu">
+            <a href="/admin/stank">
+            	<i class="fa fa-bitbucket"></i>
+            	<span>Storage Tank </span>
+           	</a>
+          </li>
+          <li class="sub-menu">
+            <a href="#">
+            	<i class="fa fa-rocket"></i>
+            	<span>Storage Tank (Avtur) </span>
+           	</a>
+          </li>
+          <li class="sub-menu">
+            <a href="#">
+            	<i class="fa fa-plane"></i>
+            	<span>DPPU </span>
+           	</a>
+          </li>
+          <li class="sub-menu">
+            <a href="#">
+            	<i class="fa fa-fire-extinguisher"></i>
+            	<span>Depot LPG </span>
+           	</a>
+          </li>
+          <li class="sub-menu">
+            <a href="#">
+            	<i class="fa fa-tachometer"></i>
+            	<span>Terminal BBM </span>
+           	</a>
+          </li>
+          <li class="sub-menu">
+            <a href="#">
+            	<i class="fa fa-money"></i>
+            	<span>Inflasi </span>
+           	</a>
+          </li>
+          <li class="sub-menu">
+            <a href="/logout" style="color: red !important;">
+            	<i class="fa fa-power-off"></i>
+            	<span>Logout </span>
+           	</a>
+          </li>
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN CONTENT
+        *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <h3><i class="fa fa-angle-right"></i> Formula Configuration</h3>
+        <!-- BASIC FORM ELELEMNTS -->
+        <div class="row mt">
+        	<div class="col-lg-4">
+	        	<section class="panel">
+	              <div class="panel-body">
+					    <h4><i class="fa fa-angle-right"></i> Update Formula</h4>
+	                  <div class="col-md-6">
+	                      <label for="kapasitas-input">Kapasitas</label>
+	                      <input class="form-control" id="kapasitas-input" type="text" placeholder="10000" disabled>
+	                  </div>
+	                  <div class="col-md-6">
+	                      <label for="diameter-input">Diameter</label>
+	                      <input class="form-control" id="diameter-input" type="text" placeholder="10000">
+	                  </div>
+	                  <div class="col-md-6">
+	                      <label for="tinggi-input">Tinggi</label>
+	                      <input class="form-control" id="tinggi-input" type="text" placeholder="10000">
+	                  </div>
+	                  <div class="col-md-6">
+	                      <label for="luas-input">Luas Tangki</label>
+	                      <input class="form-control" id="luas-input" type="number" placeholder="10">
+	                  </div>
+	                  <div class="col-md-6">
+	                      <label for="harga-input">Harga per Unit (Rp)</label>
+	                      <input class="form-control" id="harga-input" type="text" placeholder="12000">
+	                  </div>
+	                  <div class="col-md-4">
+	                      <button onclick="updateStank()" id="update-stank-button" class="form-control btn btn-success"><i class="fa fa-edit "></i> Update Formula</button>
+	                  </div>
+	              </div>
+	            </section>
+        	</div>
+			<div class="col-lg-8">
+				<section class="panel">
+					<div class="content-panel">
+					    <h4><i class="fa fa-angle-right"></i> List Formula</h4>
+					    <section id="unseen">
+					      <table id="stank-table" class="table table-bordered table-striped table-condensed">
+					        <thead>
+					          <tr>
+					            <th>No</th>
+					            <th>Kapasitas (KL)</th>
+					            <th class="numeric">Diameter (m)</th>
+					            <th class="numeric">Tinggi (m)</th>
+					            <th class="numeric">Luas Tangki (m2)</th>
+					            <th class="numeric">Harga Unit (IDR)</th>
+					            <th></th>
+					          </tr>
+					        </thead>
+					        <tbody>
+					          <tr th:each="stank,iter : ${stankList}" th:id="'row_' + ${stank.id}">
+					            <td th:id="'row_' + ${stank.id}" th:text="${iter.index}+1"></td>
+					            <td th:id="'kapasitas_' + ${stank.id}" th:text="${stank.kapasitas}"></td>
+					            <td th:id="'diameter_' + ${stank.id}" th:text="${stank.diameter}"></td>
+					            <td th:id="'tinggi_' + ${stank.id}" th:text="${stank.tinggi}"></td>
+					            <td th:id="'luas_' + ${stank.id}" th:text="${stank.luas}"></td>
+					            <td th:id="'harga_' + ${stank.id}" th:text="${stank.harga}"></td>       
+			                    <td>
+			                      <button th:attr="onclick=|editThisStank('${stank.id}')|"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+			                    </td>
+					          </tr>
+					        </tbody>
+					      </table>
+					    </section>
+					  </div>
+				</section>
+			  <!-- /content-panel -->
+			</div>
+          <!-- /col-lg-4 -->
+        </div>
+        <!-- /row -->
+      </section>
+    <!-- /MAIN CONTENT -->
+    <!--main content end-->
+    <!--footer start-->
+    <footer class="site-footer">
+      <div class="text-center">
+        <p>
+          &copy; Copyrights <strong>Dashio</strong>. All Rights Reserved
+        </p>
+        <div class="credits">
+          <!--
+            You are NOT allowed to delete the credit link to TemplateMag with free version.
+            You can delete the credit link only if you bought the pro version.
+            Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/dashio-bootstrap-admin-template/
+            Licensing information: https://templatemag.com/license/
+          -->
+          Created with Dashio template by <a href="https://templatemag.com/">TemplateMag</a>
+        </div>
+        <a href="form_component.html#" class="go-top">
+          <i class="fa fa-angle-up"></i>
+          </a>
+      </div>
+    </footer>
+    <!--footer end-->
+  </section>
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="lib/jquery.scrollTo.min.js"></script>
+  <script src="lib/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--common script for all pages-->
+  <script src="lib/common-scripts.js"></script>
+  <!--script for this page-->
+  <script src="lib/jquery-ui-1.9.2.custom.min.js"></script>
+  <!--custom switch-->
+  <script src="lib/bootstrap-switch.js"></script>
+  <!--custom tagsinput-->
+  <script src="lib/jquery.tagsinput.js"></script>
+  <!--custom checkbox & radio-->
+  <script type="text/javascript" src="lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+  <script type="text/javascript" src="lib/bootstrap-daterangepicker/date.js"></script>
+  <script type="text/javascript" src="lib/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <script type="text/javascript" src="lib/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+  <script src="lib/form-component.js"></script>
+  
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script> -->
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script> -->
+  <!-- <script type="text/javascript" src="js/html2canvas.min.js"></script> -->
+  
+	<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jspdf@1.5.3/dist/jspdf.min.js"></script>
+  <script type="text/javascript" src="js/admin-stank.js"></script>
+</body>
+
+</html>

@@ -48,19 +48,18 @@ public class RestDepotController {
 		ScriptEngineManager mgr = new ScriptEngineManager();
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
 		String mathReplace = "";
-		DecimalFormat df = new DecimalFormat("###");
+		DecimalFormat df = new DecimalFormat("###.#####");
 		if (mathString.contains("KURS")) {
 			mathReplace = mathString.replace("KURS", String.valueOf(kurs)).replace(",", ".");
 		} else {
 			mathReplace = mathString;
 		}
 		String math = mathReplace.replaceAll(",", ".");
-		long newLong = 0;
+		double newLong = 0;
 		try {
 			Object result = engine.eval(math);
 			BigDecimal bd = new BigDecimal(result.toString());
-			long lv = Long.parseLong(df.format(bd));
-			newLong = lv;
+			newLong = Double.valueOf(result.toString());
 		} catch (ScriptException e) {
 			// TODO Auto-generated catch block
 			newLong = 0;

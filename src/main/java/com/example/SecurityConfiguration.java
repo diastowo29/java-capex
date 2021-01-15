@@ -41,16 +41,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/public/**", "/css/**", "/js/**", "/img/**", "/lib/**", "/api/v1/**", "/api/v2/**").permitAll()
-		.anyRequest().authenticated()
-		.and()
-		.formLogin()
-			.loginPage("/login")
-			.failureUrl("/login-error")
-			.permitAll().and()
-		.logout()
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/login").and().cors().and().csrf().disable();
+				.antMatchers("/public/**", "/css/**", "/js/**", "/img/**", "/lib/**", "/api/v1/**", "/api/v2/**",
+						"/register", "/do_register", "/admin/**", "/stank")
+				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login")
+				.failureUrl("/login-error").permitAll().and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").and().cors()
+				.and().csrf().disable();
 	}
-	
+
 }

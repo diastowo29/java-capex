@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,27 @@ public class RestJettyFormulaController {
 	@GetMapping("/jetty")
 	public List<JettyFormula> getAllJetty() {
 		return jettyRepo.findAll();
+	}
+	
+	@PostMapping("/jetty")
+	public List<JettyFormula> getaJetty (@RequestBody Map<String, String> param) {
+		List<JettyFormula> jettyList = new ArrayList<>();
+		String nameParam = param.get("name").toString();
+		String kursParam = param.get("kurs").toString();
+		JettyFormula jetty = jettyRepo.findByName(nameParam);
+		List<Inflasi> inflasis = inflasiRepo.findAll();
+		if (jetty.getPrice_idr() == null) {
+			for (Inflasi inflasi : inflasis) {
+				if (jetty.getPrice_formula().contains("INFLASI_" + inflasi.getTahun())) {
+					jetty.setPrice_formula(jetty.getPrice_formula()
+							.replace("INFLASI_" + inflasi.getTahun(), String.valueOf(inflasi.getInflasi() / 100)));
+				}
+			}
+			jetty.setPrice_idr(doCalculation(jetty.getPrice_formula(), Long.valueOf(kursParam)));
+			jetty.setQty(1);
+		}
+		jettyList.add(jetty);
+		return jettyList;
 	}
 
 	@GetMapping("/jetty/{kurs}")
