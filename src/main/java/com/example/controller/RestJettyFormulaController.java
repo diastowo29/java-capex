@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.model.Inflasi;
 import com.example.model.JettyFormula;
 import com.example.model.JettyTrestleTypeFormula;
+import com.example.model.StorageTank;
 import com.example.repository.InflasiRepository;
 import com.example.repository.JettyFormulaRepository;
 import com.example.repository.JettyTrestleTypeFormulaRepository;
@@ -47,6 +48,31 @@ public class RestJettyFormulaController {
 	@GetMapping("/jetty")
 	public List<JettyFormula> getAllJetty() {
 		return jettyRepo.findAll();
+	}
+	
+	@PostMapping("/jetty/update")
+	public JettyFormula updateTank(@RequestBody Map<String, String> param) {
+		long id = Long.valueOf(param.get("id"));
+		Double price_idr = null;
+		String name = param.get("name").toString();
+		if (!param.get("price_idr").toString().isEmpty()) {			
+			price_idr = Double.valueOf(param.get("price_idr").toString());
+		}
+		String price_formula = param.get("price_formula").toString();
+		String remarks = param.get("remarks").toString();
+		String satuan = param.get("satuan").toString();
+		String price_tbbm_formula = param.get("price_tbbm_formula").toString();
+
+		JettyFormula jetty = jettyRepo.findById(id).orElse(new JettyFormula());
+		jetty.setName(name);
+		if (!param.get("price_idr").toString().isEmpty()) {			
+			jetty.setPrice_idr(price_idr);
+		}
+		jetty.setPrice_formula(price_formula);
+		jetty.setRemarks(remarks);
+		jetty.setSatuan(satuan);
+		jetty.setPrice_tbbm_formula(price_tbbm_formula);
+		return jettyRepo.save(jetty);
 	}
 	
 	@PostMapping("/jetty")

@@ -77,7 +77,7 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
           <li class="sub-menu">
-            <a class="active" href="/stank">
+            <a href="/stank">
             	<i class="fa fa-bitbucket"></i>
             	<span>Storage Tank </span>
            	</a>
@@ -89,7 +89,7 @@
            	</a>
           </li>
           <li class="sub-menu">
-            <a href="/admin-jetty">
+            <a class="active" href="/admin-jetty">
             	<i class="fa fa-road"></i>
             	<span>Jetty </span>
            	</a>
@@ -143,28 +143,32 @@
 	              <div class="panel-body">
 					    <h4><i class="fa fa-angle-right"></i> Update Formula</h4>
 	                  <div class="col-md-6">
-	                      <label for="kapasitas-input">Kapasitas</label>
-	                      <input class="form-control" id="kapasitas-input" type="text" placeholder="10000" disabled>
+	                      <label for="name-input">Name</label>
+	                      <input class="form-control" id="name-input" type="text" placeholder="10000" disabled>
 	                  </div>
 	                  <div class="col-md-6">
-	                      <label for="diameter-input">Diameter</label>
-	                      <input class="form-control" id="diameter-input" type="text" placeholder="10000">
+	                      <label for="harga-input">Harga (IDR)</label>
+	                      <input class="form-control" id="harga-input" type="text" placeholder="10000">
+	                  </div>
+	                  <div class="col-md-12">
+	                      <label for="formula-harga-input">Formula Harga</label>
+	                      <input class="form-control" id="formula-harga-input" type="text" placeholder="Calculation Formula">
 	                  </div>
 	                  <div class="col-md-6">
-	                      <label for="tinggi-input">Tinggi</label>
-	                      <input class="form-control" id="tinggi-input" type="text" placeholder="10000">
+	                      <label for="remarks-input">Remarks</label>
+	                      <input class="form-control" id="remarks-input" type="text" placeholder="Eskalasi">
 	                  </div>
 	                  <div class="col-md-6">
-	                      <label for="luas-input">Luas Tangki</label>
-	                      <input class="form-control" id="luas-input" type="number" placeholder="10">
+	                      <label for="satuan-input">Satuan</label>
+	                      <input class="form-control" id="satuan-input" type="text" placeholder="Unit">
+	                  </div>
+	                  <div class="col-md-12">
+	                      <label for="formula-harga-tbbm-input">Formula Harga TBBM</label>
+	                      <input class="form-control" id="formula-harga-tbbm-input" type="text" placeholder="Calculation Formula">
 	                  </div>
 	                  <div class="col-md-6">
-	                      <label for="harga-input">Harga per Unit (Rp)</label>
-	                      <input class="form-control" id="harga-input" type="text" placeholder="12000">
-	                  </div>
-	                  <div class="col-md-6">
-	                  	<label for="add-product-button" class="hide-label">a</label>
-	                      <button onclick="updateStank()" id="update-stank-button" class="form-control btn btn-success"><i class="fa fa-edit "></i> Update Formula</button>
+	                  	<label for="update-jetty-button" class="hide-label">a</label>
+	                      <button onclick="updateJetty()" id="update-jetty-button" class="form-control btn btn-success"><i class="fa fa-edit "></i> Update Formula</button>
 	                  </div>
 	              </div>
 	            </section>
@@ -178,24 +182,26 @@
 					        <thead>
 					          <tr>
 					            <th>No</th>
-					            <th>Kapasitas (KL)</th>
-					            <th class="numeric">Diameter (m)</th>
-					            <th class="numeric">Tinggi (m)</th>
-					            <th class="numeric">Luas Tangki (m2)</th>
-					            <th class="numeric">Harga Unit (IDR)</th>
+					            <th>Name</th>
+					            <th class="numeric">Harga (Rp)</th>
+					            <th class="numeric">Formula Harga </th>
+					            <th class="numeric">Remarks</th>
+					            <th class="numeric">Satuan</th>
+					            <th class="numeric">Formula Harga TBBM</th>
 					            <th></th>
 					          </tr>
 					        </thead>
 					        <tbody>
-					          <tr th:each="stank,iter : ${stankList}" th:id="'row_' + ${stank.id}">
-					            <td th:id="'row_' + ${stank.id}" th:text="${iter.index}+1"></td>
-					            <td th:id="'kapasitas_' + ${stank.id}" th:text="${stank.kapasitas}"></td>
-					            <td th:id="'diameter_' + ${stank.id}" th:text="${stank.diameter}"></td>
-					            <td th:id="'tinggi_' + ${stank.id}" th:text="${stank.tinggi}"></td>
-					            <td th:id="'luas_' + ${stank.id}" th:text="${stank.luas}"></td>
-					            <td th:id="'harga_' + ${stank.id}" th:text="${stank.harga}"></td>       
+					          <tr th:each="jsonData, iter : ${jettyList}" th:id="'row_' + ${jsonData.id}">
+					            <td th:id="'row_' + ${jsonData.id}" th:text="${iter.index}+1"></td>
+					            <td th:id="'name_' + ${jsonData.id}" th:text="${jsonData.name}"></td>
+					            <td th:id="'price_' + ${jsonData.id}" th:text="${jsonData.price_idr}"></td>
+					            <td th:id="'price_formula_' + ${jsonData.id}" th:text="${jsonData.price_formula}"></td>
+					            <td th:id="'remarks_' + ${jsonData.id}" th:text="${jsonData.remarks}"></td>
+					            <td th:id="'satuan_' + ${jsonData.id}" th:text="${jsonData.satuan}"></td>
+					            <td th:id="'price_tbbm_formula_' + ${jsonData.id}" th:text="${jsonData.price_tbbm_formula}"></td>      
 			                    <td>
-			                      <button th:attr="onclick=|editThisStank('${stank.id}')|"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+			                      <button th:attr="onclick=|editThisJetty('${jsonData.id}')|"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
 			                    </td>
 					          </tr>
 					        </tbody>

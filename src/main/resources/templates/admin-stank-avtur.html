@@ -77,13 +77,13 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
           <li class="sub-menu">
-            <a class="active" href="/stank">
+            <a href="/stank">
             	<i class="fa fa-bitbucket"></i>
             	<span>Storage Tank </span>
            	</a>
           </li>
           <li class="sub-menu">
-            <a href="/stank-avtur">
+            <a class="active" href="/stank-avtur">
             	<i class="fa fa-rocket"></i>
             	<span>Storage Tank (Avtur) </span>
            	</a>
@@ -163,8 +163,16 @@
 	                      <input class="form-control" id="harga-input" type="text" placeholder="12000">
 	                  </div>
 	                  <div class="col-md-6">
+	                      <label for="harga-internal-coating-input">Harga Internal Coating</label>
+	                      <input class="form-control" id="harga-internal-coating-input" type="text" placeholder="12000">
+	                  </div>
+	                  <div class="col-md-6">
+	                      <label for="harga-floating-suction-input">Harga Floating Suction</label>
+	                      <input class="form-control" id="harga-floating-suction-input" type="text" placeholder="12000">
+	                  </div>
+	                  <div class="col-md-6">
 	                  	<label for="add-product-button" class="hide-label">a</label>
-	                      <button onclick="updateStank()" id="update-stank-button" class="form-control btn btn-success"><i class="fa fa-edit "></i> Update Formula</button>
+	                      <button onclick="updateStankAvtur()" id="update-stank-button" class="form-control btn btn-success"><i class="fa fa-edit "></i> Update Formula</button>
 	                  </div>
 	              </div>
 	            </section>
@@ -183,6 +191,8 @@
 					            <th class="numeric">Tinggi (m)</th>
 					            <th class="numeric">Luas Tangki (m2)</th>
 					            <th class="numeric">Harga Unit (IDR)</th>
+					            <th class="numeric">Harga Internal Coating (IDR)</th>
+					            <th class="numeric">Harga Floating Suction (IDR)</th>
 					            <th></th>
 					          </tr>
 					        </thead>
@@ -193,9 +203,11 @@
 					            <td th:id="'diameter_' + ${stank.id}" th:text="${stank.diameter}"></td>
 					            <td th:id="'tinggi_' + ${stank.id}" th:text="${stank.tinggi}"></td>
 					            <td th:id="'luas_' + ${stank.id}" th:text="${stank.luas}"></td>
-					            <td th:id="'harga_' + ${stank.id}" th:text="${stank.harga}"></td>       
+					            <td th:id="'harga_' + ${stank.id}" th:text="${stank.harga}"></td>  
+					            <td th:id="'harga_internal_coating_' + ${stank.id}" th:text="${stank.hargaInternalCoating}"></td> 
+					            <td th:id="'harga_floating_' + ${stank.id}" th:text="${stank.hargaFloatingSuction}"></td>      
 			                    <td>
-			                      <button th:attr="onclick=|editThisStank('${stank.id}')|"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+			                      <button th:attr="onclick=|editThisStankAvtur('${stank.id}')|"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
 			                    </td>
 					          </tr>
 					        </tbody>
