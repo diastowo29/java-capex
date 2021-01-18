@@ -89,7 +89,7 @@
            	</a>
           </li>
           <li class="sub-menu">
-            <a class="active" href="/admin-jetty">
+            <a href="/admin-jetty">
             	<i class="fa fa-road"></i>
             	<span>Jetty </span>
            	</a>
@@ -107,7 +107,7 @@
            	</a>
           </li>
           <li class="sub-menu">
-            <a href="/admin-tbbm">
+            <a class="active" href="/admin-tbbm">
             	<i class="fa fa-tachometer"></i>
             	<span>Terminal BBM </span>
            	</a>
@@ -143,12 +143,20 @@
 	              <div class="panel-body">
 					    <h4><i class="fa fa-angle-right"></i> Update Formula</h4>
 	                  <div class="col-md-6">
-	                      <label for="name-input">Name</label>
-	                      <input class="form-control" id="name-input" type="text" placeholder="10000" disabled>
+	                      <label for="name-input">Nama</label>
+	                      <input class="form-control" id="name-input" type="text" placeholder="10000">
+	                  </div>
+	                  <div class="col-md-6">
+	                      <label for="cap-input">Kapasitas</label>
+	                      <input class="form-control" id="cap-input" type="text" placeholder="3000" disabled>
 	                  </div>
 	                  <div class="col-md-6">
 	                      <label for="harga-input">Harga (IDR)</label>
 	                      <input class="form-control" id="harga-input" type="text" placeholder="10000">
+	                  </div>
+	                  <div class="col-md-6">
+	                      <label for="qty-input">Qty</label>
+	                      <input class="form-control" id="qty-input" type="text" placeholder="1">
 	                  </div>
 	                  <div class="col-md-12">
 	                      <label for="formula-harga-input">Formula Harga</label>
@@ -162,13 +170,9 @@
 	                      <label for="satuan-input">Satuan</label>
 	                      <input class="form-control" id="satuan-input" type="text" placeholder="Unit">
 	                  </div>
-	                  <div class="col-md-12">
-	                      <label for="formula-harga-tbbm-input">Formula Harga TBBM</label>
-	                      <input class="form-control" id="formula-harga-tbbm-input" type="text" placeholder="Calculation Formula">
-	                  </div>
 	                  <div class="col-md-6">
-	                  	<label for="update-jetty-button" class="hide-label">a</label>
-	                      <button onclick="updateJetty()" id="update-jetty-button" class="form-control btn btn-success"><i class="fa fa-edit "></i> Update Formula</button>
+	                  	<label for="update-depot-button" class="hide-label">a</label>
+	                      <button onclick="updateTbbm()" id="update-depot-button" class="form-control btn btn-success"><i class="fa fa-edit "></i> Update Formula</button>
 	                  </div>
 	              </div>
 	            </section>
@@ -182,26 +186,28 @@
 					        <thead>
 					          <tr>
 					            <th>No</th>
-					            <th>Name</th>
-					            <th class="numeric">Harga (Rp)</th>
-					            <th class="numeric">Formula Harga </th>
+					            <th>Kapasitas</th>
+					            <th class="numeric">Nama</th>
+					            <th class="numeric">Harga (Rp) </th>
+					            <th class="numeric">Qty</th>
 					            <th class="numeric">Remarks</th>
 					            <th class="numeric">Satuan</th>
-					            <th class="numeric">Formula Harga TBBM</th>
+					            <th class="numeric">Formula Harga</th>
 					            <th></th>
 					          </tr>
 					        </thead>
 					        <tbody>
-					          <tr th:each="jsonData, iter : ${jettyList}" th:id="'row_' + ${jsonData.id}">
+					          <tr th:each="jsonData, iter : ${tbbmList}" th:id="'row_' + ${jsonData.id}">
 					            <td th:id="'row_' + ${jsonData.id}" th:text="${iter.index}+1"></td>
+					            <td th:id="'cap_' + ${jsonData.id}" th:text="${jsonData.cap}"></td>
 					            <td th:id="'name_' + ${jsonData.id}" th:text="${jsonData.name}"></td>
-					            <td th:id="'price_' + ${jsonData.id}" th:text="${jsonData.price_idr}"></td>
-					            <td th:id="'price_formula_' + ${jsonData.id}" th:text="${jsonData.price_formula}"></td>
+					            <td th:id="'price_idr_' + ${jsonData.id}" th:text="${jsonData.price_idr}"></td>
+					            <td th:id="'qty_' + ${jsonData.id}" th:text="${jsonData.qty}"></td>
 					            <td th:id="'remarks_' + ${jsonData.id}" th:text="${jsonData.remarks}"></td>
-					            <td th:id="'satuan_' + ${jsonData.id}" th:text="${jsonData.satuan}"></td>
-					            <td th:id="'price_tbbm_formula_' + ${jsonData.id}" th:text="${jsonData.price_tbbm_formula}"></td>      
+					            <td th:id="'satuan_' + ${jsonData.id}" th:text="${jsonData.satuan}"></td>  
+					            <td th:id="'price_formula_' + ${jsonData.id}" th:text="${jsonData.price_formula}"></td>    
 			                    <td>
-			                      <button th:attr="onclick=|editThisJetty('${jsonData.id}')|"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+			                      <button th:attr="onclick=|editThisTbbm('${jsonData.id}')|"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
 			                    </td>
 					          </tr>
 					        </tbody>

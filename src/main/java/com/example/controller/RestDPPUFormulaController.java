@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.script.ScriptEngine;
@@ -24,6 +25,7 @@ import com.example.model.DPPUFormula;
 import com.example.model.Inflasi;
 import com.example.model.StorageTank;
 import com.example.model.StorageTankAvtur;
+import com.example.model.TBBMFormula;
 import com.example.repository.DPPUFormulaRepository;
 import com.example.repository.InflasiRepository;
 import com.example.repository.StorageTankAvturRepository;
@@ -53,6 +55,31 @@ public class RestDPPUFormulaController {
 	@PostMapping("/dppu/add")
 	public DPPUFormula createDppu(@Validated @RequestBody DPPUFormula dppu) {
 		return dppuRepo.save(dppu);
+	}
+
+	@PostMapping("/dppu/update")
+	public DPPUFormula updateTank(@RequestBody Map<String, String> param) {
+		long id = Long.valueOf(param.get("id"));
+		Double price_idr = null;
+		String name = param.get("name").toString();
+		if (!param.get("price_idr").toString().isEmpty()) {			
+			price_idr = Double.valueOf(param.get("price_idr").toString());
+		}
+		String price_formula = param.get("price_formula").toString();
+		String remarks = param.get("remarks").toString();
+		String satuan = param.get("satuan").toString();
+		long qty = Long.valueOf(param.get("qty").toString());
+
+		DPPUFormula jetty = dppuRepo.findById(id).orElse(new DPPUFormula());
+		jetty.setName(name);
+		if (!param.get("price_idr").toString().isEmpty()) {			
+			jetty.setPrice_idr(price_idr);
+		}
+		jetty.setPrice_formula(price_formula);
+		jetty.setRemarks(remarks);
+		jetty.setSatuan(satuan);
+		jetty.setQty(qty);
+		return dppuRepo.save(jetty);
 	}
 
 	@GetMapping("/dppu/{cap}/{kurs}")

@@ -8,14 +8,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.model.DPPUFormula;
 import com.example.model.DepotLPGFormula;
+import com.example.model.Inflasi;
 import com.example.model.JettyFormula;
 import com.example.model.StorageTank;
 import com.example.model.StorageTankAvtur;
+import com.example.model.TBBMFormula;
+import com.example.repository.DPPUFormulaRepository;
 import com.example.repository.DepotLPGFormulaRepository;
+import com.example.repository.InflasiRepository;
 import com.example.repository.JettyFormulaRepository;
 import com.example.repository.StorageTankAvturRepository;
 import com.example.repository.StorageTankRepository;
+import com.example.repository.TBBMFormulaRepository;
 
 @Controller
 @SpringBootApplication
@@ -29,6 +35,12 @@ public class AdminController {
 	JettyFormulaRepository jettyRepo;
 	@Autowired
 	DepotLPGFormulaRepository depotRepo;
+	@Autowired
+	TBBMFormulaRepository tbbmRepo;
+	@Autowired
+	InflasiRepository inflasiRepo;
+	@Autowired
+	DPPUFormulaRepository dppuRepo;
 
 	@RequestMapping("/admin")
 	String loadAdminPage() {
@@ -61,5 +73,26 @@ public class AdminController {
 		List<DepotLPGFormula> depotList = depotRepo.findAll();
 		model.addAttribute("depotList", depotList);
 		return "admin-depot";
+	}
+
+	@RequestMapping("/admin-tbbm")
+	String loadAdminTbbmPage(Model model) {
+		List<TBBMFormula> tbbmList = tbbmRepo.findAll();
+		model.addAttribute("tbbmList", tbbmList);
+		return "admin-tbbm";
+	}
+	
+	@RequestMapping("/admin-inflasi")
+	String loadAdminInflasiPage(Model model) {
+		List<Inflasi> inflasiList = inflasiRepo.findAll();
+		model.addAttribute("inflasiList", inflasiList);
+		return "admin-inflasi";
+	}
+	
+	@RequestMapping("/admin-dppu")
+	String loadAdminDppuPage(Model model) {
+		List<DPPUFormula> dppuList = dppuRepo.findAll();
+		model.addAttribute("dppuList", dppuList);
+		return "admin-dppu";
 	}
 }

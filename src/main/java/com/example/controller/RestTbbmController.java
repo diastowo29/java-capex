@@ -3,6 +3,7 @@ package com.example.controller;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Map;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.model.DepotLPGFormula;
 import com.example.model.Inflasi;
 import com.example.model.TBBMFormula;
 import com.example.repository.InflasiRepository;
@@ -58,6 +60,31 @@ public class RestTbbmController {
 			}
 		}
 		return tbbms;
+	}
+
+	@PostMapping("/tbbm/update")
+	public TBBMFormula updateTank(@RequestBody Map<String, String> param) {
+		long id = Long.valueOf(param.get("id"));
+		Double price_idr = null;
+		String name = param.get("name").toString();
+		if (!param.get("price_idr").toString().isEmpty()) {			
+			price_idr = Double.valueOf(param.get("price_idr").toString());
+		}
+		String price_formula = param.get("price_formula").toString();
+		String remarks = param.get("remarks").toString();
+		String satuan = param.get("satuan").toString();
+		long qty = Long.valueOf(param.get("qty").toString());
+
+		TBBMFormula jetty = tbbmFormulaRepo.findById(id).orElse(new TBBMFormula());
+		jetty.setName(name);
+		if (!param.get("price_idr").toString().isEmpty()) {			
+			jetty.setPrice_idr(price_idr);
+		}
+		jetty.setPrice_formula(price_formula);
+		jetty.setRemarks(remarks);
+		jetty.setSatuan(satuan);
+		jetty.setQty(qty);
+		return tbbmFormulaRepo.save(jetty);
 	}
 
 	public double doCalculation(String mathString, long kurs) {

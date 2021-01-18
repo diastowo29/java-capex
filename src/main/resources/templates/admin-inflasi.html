@@ -89,7 +89,7 @@
            	</a>
           </li>
           <li class="sub-menu">
-            <a class="active" href="/admin-jetty">
+            <a href="/admin-jetty">
             	<i class="fa fa-road"></i>
             	<span>Jetty </span>
            	</a>
@@ -113,7 +113,7 @@
            	</a>
           </li>
           <li class="sub-menu">
-            <a href="/admin-inflasi">
+            <a class="active" href="/admin-inflasi">
             	<i class="fa fa-money"></i>
             	<span>Inflasi </span>
            	</a>
@@ -138,37 +138,40 @@
         <h3><i class="fa fa-angle-right"></i> Formula Configuration</h3>
         <!-- BASIC FORM ELELEMNTS -->
         <div class="row mt">
-        	<div class="col-lg-4">
+        	<div class="col-lg-4" id="update-panel">
 	        	<section class="panel">
 	              <div class="panel-body">
 					    <h4><i class="fa fa-angle-right"></i> Update Formula</h4>
 	                  <div class="col-md-6">
-	                      <label for="name-input">Name</label>
-	                      <input class="form-control" id="name-input" type="text" placeholder="10000" disabled>
+	                      <label for="inflasi-input">Inflasi</label>
+	                      <input class="form-control" id="inflasi-input" type="text" placeholder="10000">
 	                  </div>
 	                  <div class="col-md-6">
-	                      <label for="harga-input">Harga (IDR)</label>
-	                      <input class="form-control" id="harga-input" type="text" placeholder="10000">
-	                  </div>
-	                  <div class="col-md-12">
-	                      <label for="formula-harga-input">Formula Harga</label>
-	                      <input class="form-control" id="formula-harga-input" type="text" placeholder="Calculation Formula">
+	                      <label for="tahun-input">Tahun</label>
+	                      <input class="form-control" id="tahun-input" type="text" placeholder="10000" disabled>
 	                  </div>
 	                  <div class="col-md-6">
-	                      <label for="remarks-input">Remarks</label>
-	                      <input class="form-control" id="remarks-input" type="text" placeholder="Eskalasi">
+	                  	<label for="update-inflasi-button" class="hide-label">a</label>
+	                      <button onclick="updateInflasi()" id="update-inflasi-button" class="form-control btn btn-success"><i class="fa fa-edit "></i> Update Formula</button>
+	                  </div>
+	              </div>
+	            </section>
+        	</div>
+        	<div class="col-lg-4" id="create-panel">
+	        	<section class="panel">
+	              <div class="panel-body">
+					    <h4><i class="fa fa-angle-right"></i> Create Formula</h4>
+	                  <div class="col-md-6">
+	                      <label for="new-inflasi-input">Inflasi</label>
+	                      <input class="form-control" id="new-inflasi-input" type="text" placeholder="10000">
 	                  </div>
 	                  <div class="col-md-6">
-	                      <label for="satuan-input">Satuan</label>
-	                      <input class="form-control" id="satuan-input" type="text" placeholder="Unit">
-	                  </div>
-	                  <div class="col-md-12">
-	                      <label for="formula-harga-tbbm-input">Formula Harga TBBM</label>
-	                      <input class="form-control" id="formula-harga-tbbm-input" type="text" placeholder="Calculation Formula">
+	                      <label for="new-tahun-input">Tahun</label>
+	                      <input class="form-control" id="new-tahun-input" type="text" placeholder="10000">
 	                  </div>
 	                  <div class="col-md-6">
-	                  	<label for="update-jetty-button" class="hide-label">a</label>
-	                      <button onclick="updateJetty()" id="update-jetty-button" class="form-control btn btn-success"><i class="fa fa-edit "></i> Update Formula</button>
+	                  	<label for="new-inflasi-button" class="hide-label">a</label>
+	                      <button onclick="createInflasi()" id="new-inflasi-button" class="form-control btn btn-success"><i class="fa fa-edit "></i> Create Formula</button>
 	                  </div>
 	              </div>
 	            </section>
@@ -176,32 +179,31 @@
 			<div class="col-lg-8">
 				<section class="panel">
 					<div class="content-panel">
-					    <h4><i class="fa fa-angle-right"></i> List Formula</h4>
+						<div class="row">
+							<div class="col-md-10">
+							    <h4><i class="fa fa-angle-right"></i> List Formula</h4>
+							</div>
+		                    <div class="col-md-2">
+		                        <button onclick="newInflasi()" style="float: right;" id="add-customer-button" class="col-xs-offset-6 btn btn-success"><i class="fa fa-edit "></i> Produk Baru</button>
+		                    </div>
+						</div>
 					    <section id="unseen">
 					      <table id="stank-table" class="table table-bordered table-striped table-condensed">
 					        <thead>
 					          <tr>
 					            <th>No</th>
-					            <th>Name</th>
-					            <th class="numeric">Harga (Rp)</th>
-					            <th class="numeric">Formula Harga </th>
-					            <th class="numeric">Remarks</th>
-					            <th class="numeric">Satuan</th>
-					            <th class="numeric">Formula Harga TBBM</th>
+					            <th>Tahun</th>
+					            <th class="numeric">Inflasi</th>
 					            <th></th>
 					          </tr>
 					        </thead>
 					        <tbody>
-					          <tr th:each="jsonData, iter : ${jettyList}" th:id="'row_' + ${jsonData.id}">
-					            <td th:id="'row_' + ${jsonData.id}" th:text="${iter.index}+1"></td>
-					            <td th:id="'name_' + ${jsonData.id}" th:text="${jsonData.name}"></td>
-					            <td th:id="'price_' + ${jsonData.id}" th:text="${jsonData.price_idr}"></td>
-					            <td th:id="'price_formula_' + ${jsonData.id}" th:text="${jsonData.price_formula}"></td>
-					            <td th:id="'remarks_' + ${jsonData.id}" th:text="${jsonData.remarks}"></td>
-					            <td th:id="'satuan_' + ${jsonData.id}" th:text="${jsonData.satuan}"></td>
-					            <td th:id="'price_tbbm_formula_' + ${jsonData.id}" th:text="${jsonData.price_tbbm_formula}"></td>      
+					          <tr th:each="stank,iter : ${inflasiList}" th:id="'row_' + ${stank.id}">
+					            <td th:id="'row_' + ${stank.id}" th:text="${iter.index}+1"></td>
+					            <td th:id="'tahun_' + ${stank.id}" th:text="${stank.tahun}"></td>   
+					            <td th:id="'inflasi_' + ${stank.id}" th:text="${stank.inflasi}"></td>
 			                    <td>
-			                      <button th:attr="onclick=|editThisJetty('${jsonData.id}')|"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+			                      <button th:attr="onclick=|editThisInflasi('${stank.id}')|"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
 			                    </td>
 					          </tr>
 					        </tbody>

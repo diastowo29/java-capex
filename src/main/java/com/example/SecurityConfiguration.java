@@ -43,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				.antMatchers("/public/**", "/css/**", "/js/**", "/img/**", "/lib/**", "/api/v1/**", "/api/v2/**",
 						"/register", "/do_register", "/admin/**", "/stank", "/stank-avtur", "/admin-jetty",
-						"/admin-depotlpg")
+						"/admin-depotlpg", "/admin-tbbm", "/admin-inflasi", "/admin-dppu")
 				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login")
 				.failureUrl("/login-error").permitAll().and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").and().cors()
