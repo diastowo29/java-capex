@@ -375,7 +375,7 @@ function formValidate () {
 
 
 							$.ajax({
-								url: '/api/v1/storage_tank',
+								url: '/capex/api/v1/storage_tank',
 								contentType: 'application/json',
 								dataType: 'json',
 								success: function (tankResult) {
@@ -388,12 +388,12 @@ function formValidate () {
 									});
 									console.log(panjangParameter)
 									$.ajax({
-										url: '/api/v1/jettytbbm/' + $('#kurs_input').val() + '?' + panjangParameter,
+										url: '/capex/api/v1/jettytbbm/' + $('#kurs_input').val() + '?' + panjangParameter,
 										contentType: 'application/json',
 										dataType: 'json',
 										success: function (jettyResult) {
 											$.ajax({
-												url: '/api/v1/tbbm/' + tangkiParameter + '/' + $('#kurs_input').val(),
+												url: '/capex/api/v1/tbbm/' + tangkiParameter + '/' + $('#kurs_input').val(),
 												contentType: 'application/json',
 												dataType: 'json',
 												success: function (tbbmResult) {
@@ -456,7 +456,7 @@ function formValidate () {
 					isItValid = true;
 					tableTitleh4 = facilityInput + ' - ' + $('#lpg_cap').val() + ' MT'
 					$.ajax({
-						url: '/api/v2/depot/' + $('#lpg_cap').val() + '/' + $('#kurs_input').val(),
+						url: '/capex/api/v2/depot/' + $('#lpg_cap').val() + '/' + $('#kurs_input').val(),
 						contentType: "application/json",
 						dataType: 'json',
 						success: function(depotLpgResult){
@@ -500,7 +500,7 @@ function formValidate () {
 						});
 
 						$.ajax({
-							url: '/api/v1/dppu/' + $('#kelas_dppu').val() + '/' + $('#kurs_input').val() + '?' + volumeParameter,
+							url: '/capex/api/v1/dppu/' + $('#kelas_dppu').val() + '/' + $('#kurs_input').val() + '?' + volumeParameter,
 							contentType: "application/json",
 							dataType: 'json',
 							success: function(result){
@@ -735,7 +735,7 @@ function formValidate () {
 						'kurs': $('#kurs_input').val(),
 					}
 					$.ajax({
-						url: '/api/v1/jetty',
+						url: '/capex/api/v1/jetty',
 						contentType: "application/json",
 						dataType: 'json',
 						method: 'post',
@@ -769,7 +769,7 @@ function formValidate () {
 							'kurs': $('#kurs_input').val()
 						}
 						$.ajax({
-							url: '/api/v1/jetty_4/calculate',
+							url: '/capex/api/v1/jetty_4/calculate',
 							contentType: "application/json",
 							dataType: 'json',
 							method: 'post',

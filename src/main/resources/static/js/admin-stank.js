@@ -32,7 +32,7 @@ function updateStank (id) {
 		'harga': $('#harga-input').val()
 	}
 	$.ajax({
-		url: '/api/v1/storage_tank/update',
+		url: '/capex/api/v1/storage_tank/update',
 		contentType: "application/json",
 		dataType: 'json',
 		method: 'post',
@@ -55,7 +55,7 @@ function updateStankAvtur (id) {
 		'hargaFloatingSuction': $('#harga-floating-suction-input').val()
 	}
 	$.ajax({
-		url: '/api/v1/storage_tank_avtur/update',
+		url: '/capex/api/v1/storage_tank_avtur/update',
 		contentType: "application/json",
 		dataType: 'json',
 		method: 'post',
@@ -92,7 +92,7 @@ function updateJetty (id) {
 		'price_tbbm_formula': $('#formula-harga-tbbm-input').val()
 	}
 	$.ajax({
-		url: '/api/v1/jetty/update',
+		url: '/capex/api/v1/jetty/update',
 		contentType: "application/json",
 		dataType: 'json',
 		method: 'post',
@@ -130,7 +130,7 @@ function updateDepot (id) {
 		'qty': $('#qty-input').val(),
 	}
 	$.ajax({
-		url: '/api/v2/depot/update',
+		url: '/capex/api/v2/depot/update',
 		contentType: "application/json",
 		dataType: 'json',
 		method: 'post',
@@ -168,7 +168,7 @@ function udpateTbbm (id) {
 		'qty': $('#qty-input').val(),
 	}
 	$.ajax({
-		url: '/api/v1/tbbm/update',
+		url: '/capex/api/v1/tbbm/update',
 		contentType: "application/json",
 		dataType: 'json',
 		method: 'post',
@@ -196,7 +196,7 @@ function updateInflasi (id) {
 	}
 
 	$.ajax({
-		url: '/api/v1/inflasi/update',
+		url: '/capex/api/v1/inflasi/update',
 		contentType: "application/json",
 		dataType: 'json',
 		method: 'post',
@@ -219,7 +219,7 @@ function createInflasi () {
 	}
 
 	$.ajax({
-		url: '/api/v1/inflasi/add',
+		url: '/capex/api/v1/inflasi/add',
 		contentType: "application/json",
 		dataType: 'json',
 		method: 'post',
@@ -259,7 +259,7 @@ function updateDppu (id) {
 		'qty': $('#qty-input').val(),
 	}
 	$.ajax({
-		url: '/api/v1/dppu/update',
+		url: '/capex/api/v1/dppu/update',
 		contentType: "application/json",
 		dataType: 'json',
 		method: 'post',

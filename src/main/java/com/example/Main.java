@@ -19,6 +19,7 @@ package com.example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.stereotype.Controller;
 
 import com.example.model.User;
@@ -26,7 +27,7 @@ import com.example.repository.UserRepository;
 
 @Controller
 @SpringBootApplication
-public class Main {
+public class Main extends SpringBootServletInitializer{
 	@Autowired
 	UserRepository userRepo;
 
